@@ -1,0 +1,7 @@
+{
+  "name": "IO Collega Tracker Frontend",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
