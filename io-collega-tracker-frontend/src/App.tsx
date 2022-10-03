@@ -14,6 +14,9 @@ import { ellipse, square, triangle } from 'ionicons/icons';
 import Tab1 from './pages/Tab1';
 import Tab2 from './pages/Tab2';
 import Tab3 from './pages/Tab3';
+import GoogleLogin from './pages/GoogleLogin';
+import LoginSuccess from './pages/LoginSuccess';
+import MailConfirm from './pages/MailConfirm';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -49,6 +52,15 @@ const App: React.FC = () => (
           </Route>
           <Route path="/tab3">
             <Tab3 />
+          </Route>
+          <Route path="/googlelogin">
+            <GoogleLogin />
+          </Route>
+          <Route path="/mailconfirm">
+            <MailConfirm />
+          </Route>
+          <Route path="/loginsuccess">
+            <LoginSuccess />
           </Route>
           <Route exact path="/">
             <Redirect to="/tab1" />
