@@ -27,16 +27,6 @@
     color: white;
 }
 
-.mail {
-    font-family: 'TT Commons Pro';
-    color: white;
-    font-size: large;
-}
-
-i {
-    margin-top: 50px;
-}
-
 h1 {
     font-family: 'TT Commons Pro';
     color: white;
@@ -61,5 +51,5 @@ form {
 }
 
 .submit {
-    padding-top: 100px;
+    padding-top: 200px;
 }

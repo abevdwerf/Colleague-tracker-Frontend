@@ -1,22 +1,16 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
-import './Tab1.css';
+import "./LoginSuccess.css"
 
 const LoginSuccess: React.FC = () => {
   return (
     <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonTitle>Login Success</IonTitle>
-        </IonToolbar>
-      </IonHeader>
       <IonContent fullscreen>
-        <IonHeader collapse="condense">
-          <IonToolbar>
-            <IonTitle size="large">Login Success</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <h1>You have successfully logged into your iO account!</h1>
+        <div className='content'>
+          <h1>You have successfully logged into your iO account!</h1>
+          <i className="fa-solid fa-check fa-4x"></i> <br />
+          <label className='label'>You will be redirected shortly.</label>
+        </div>
       </IonContent>
     </IonPage>
   );
