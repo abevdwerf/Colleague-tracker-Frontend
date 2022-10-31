@@ -17,6 +17,7 @@ import Tab3 from './pages/Tab3';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
+import VerifyWait from './pages/VerifyWait';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -53,13 +54,16 @@ const App: React.FC = () => (
           <Route path="/tab3">
             <Tab3 />
           </Route>
-          <Route path="/googlelogin">
+          <Route exact path="/googlelogin">
             <GoogleLogin />
           </Route>
-          <Route path="/mailconfirm">
+          <Route exact path="/mailconfirm">
             <MailConfirm />
           </Route>
-          <Route path="/loginsuccess">
+          <Route exact path="/verifyWait">
+            <VerifyWait />
+          </Route>
+          <Route exact path="/loginsuccess">
             <LoginSuccess />
           </Route>
           <Route exact path="/">
