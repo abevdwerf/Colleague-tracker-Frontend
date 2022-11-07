@@ -27,16 +27,6 @@
     color: white;
 }
 
-.mail {
-    font-family: 'TT Commons Pro';
-    color: white;
-    font-size: large;
-}
-
-i {
-    margin-top: 50px;
-}
-
 h1 {
     font-family: 'TT Commons Pro';
     color: white;
@@ -51,6 +41,11 @@ ion-content {
     transform: translateY(-50%);
 }
 
+.content {
+    padding: 50px;
+    padding-top: 150px;
+}
+
 form {
     padding: 75px;
     padding-top: 150px
@@ -61,5 +56,10 @@ form {
 }
 
 .submit {
-    padding-top: 100px;
+    padding-top: 200px;
+}
+
+i {
+    margin-top: 50px;
+    margin-bottom: 50px;
 }

@@ -3,6 +3,8 @@ http://ionicframework.com/docs/theming/ */
 
 /** Ionic CSS Variables **/
 :root {
+  --ion-background-color: linear-gradient(90deg, #F5AB5E 0%, #D86A69 100%);
+
   /** primary **/
   --ion-background-color: linear-gradient(90deg, #F5AB5E 0%, #D86A69 100%);
   --ion-color-primary: #3880FF;
@@ -243,4 +245,13 @@ http://ionicframework.com/docs/theming/ */
     ion-tab-button {
       color: lightgrey;
     }
+}
+
+ion-tab-bar {
+  background-image: white;
+  border: none
+}
+
+ion-tab-button {
+  color: lightgrey;
 }
