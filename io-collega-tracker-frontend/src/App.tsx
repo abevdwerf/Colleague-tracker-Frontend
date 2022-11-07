@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, medkit, triangle } from 'ionicons/icons';
+import { ellipse, square, medkit, triangle, location } from 'ionicons/icons';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
@@ -34,6 +34,7 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import LocationSetting from './pages/LocationSetting';
 
 setupIonicReact();
 
@@ -53,6 +54,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/loginsuccess">
             <LoginSuccess />
+          </Route>
+          <Route exact path="/locationSetting">
+            <LocationSetting />
           </Route>
           <Route exact path="/">
             <Redirect to="/googleLogin" />
@@ -74,6 +78,10 @@ const App: React.FC = () => (
           <IonTabButton tab="tab4" href="/loginSuccess">
             <IonIcon icon={square} />
             <IonLabel>Success</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab5" href="/locationSetting">
+            <IonIcon icon={location} />
+            <IonLabel>Location</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>
