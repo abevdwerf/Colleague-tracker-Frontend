@@ -1,7 +1,7 @@
-.btn {
-    background: white;
+#signInDiv {
+    /* background: white;
     min-width: 150px;
-    min-height: 40px;
+    min-height: 40px; */
     border: none;
     font-family: 'TT Commons Pro';
     color: black;
@@ -52,4 +52,14 @@ form {
 
 .submit {
     padding-top: 200px;
+}
+
+#signInDiv > div > div:first-child{
+    display: none;
+    color-scheme: normal;
+  }
+
+#signInDiv > div > div:last-child{
+display: block;
+color-scheme: normal;
 }

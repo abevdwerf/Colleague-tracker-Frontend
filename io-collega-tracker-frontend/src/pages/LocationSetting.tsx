@@ -1,14 +1,47 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import "./LocationSetting.css"
 
 const LocationSetting: React.FC = () => {
     function SetNo() {
-        
+        let config = {
+            headers: {
+              idToken: localStorage.getItem("token"),
+            },
+            params: {
+                status: "Home",
+                expirationTime: "1701282375"
+            }
+          }
+
+        axios.post(`http://localhost:8080/api/status/set`, null, config)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     function SetYes() {
+        let config = {
+            headers: {
+              idToken: localStorage.getItem("token"),
+            },
+            params: {
+                status: "Office",
+                expirationTime: "1701282375"
+            }
+          }
 
+        axios.post(`http://localhost:8080/api/status/set`, null, config)
+        .then(res => {
+          console.log(res)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return (

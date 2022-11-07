@@ -1,8 +1,20 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useEffect } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import "./LoginSuccess.css"
 
 const LoginSuccess: React.FC = () => {
+
+  useEffect(() => {
+
+    function redirectToApp(){
+      window.location.href="/locationSetting"
+    }
+
+    setTimeout(redirectToApp, 5000)
+    
+   }, [])
+
   return (
     <IonPage>
       <IonContent fullscreen>
