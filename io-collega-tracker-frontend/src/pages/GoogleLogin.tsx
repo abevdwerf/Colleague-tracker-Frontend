@@ -1,26 +1,22 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, isPlatform, IonIcon} from '@ionic/react';
+import { logoGoogle } from 'ionicons/icons';
 import { useEffect, useState} from 'react'
 import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
+import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 
-declare var google:any;
+//declare var google:any;
 
 const GoogleLogin: React.FC = () => {
 
-  //const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [token, setToken] = useState('')
-  const [data, setData] = useState('')
-  
-
-  useEffect(() => {
-    async function handleCallbackResponse(response:any) {
-      let isLoggedIn = false
-      setToken(response.credential)
-      console.log(response.credential)
+  async function googleSignIn() {
+    const response = await GoogleAuth.signIn()
+    let isLoggedIn = false
+      console.log(response)
       let config = {
         headers: {
-          idToken: response.credential,
+          idToken: response.authentication.idToken,
         }
       }
   
@@ -30,7 +26,7 @@ const GoogleLogin: React.FC = () => {
           if (res.status === 200) {
             isLoggedIn = true;
             console.log(isLoggedIn)
-            localStorage.setItem("token", response.credential)
+            localStorage.setItem("token", response.authentication.idToken)
             redirectToApp()
           }
         })
@@ -61,22 +57,16 @@ const GoogleLogin: React.FC = () => {
       }
     }
     }
+
   
-    google.accounts.id.initialize({
-      client_id:"733509514183-sa302u6f1fhqc7a93j789daqmgr63ckv.apps.googleusercontent.com",
-      callback: handleCallbackResponse
-    })
 
+  useEffect(() => {
 
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      { 
-      theme: "filled_blue", 
-      size: "large",
-      shape: "rectangular",
-      width: 150,
+    if (!isPlatform('capacitor')) {
+      GoogleAuth.initialize()
     }
-    );
+
+    
 
   }, [])
 
@@ -90,7 +80,12 @@ const GoogleLogin: React.FC = () => {
           <h1>Please log in with a valid Google account to continue.</h1> <br />
           <label className='label'>If you have never logged in before, you will be prompted to verify your role as an iO employee by entering your iO email address.</label>
           <br />
-            <div id="signInDiv"/>
+            <div id="signInDiv">
+              <button id="GoogleBtn" onClick={googleSignIn}>
+                  <IonIcon id='GoogleIcon' icon={logoGoogle} />
+                  <text id='GoogleText'>Login With Google</text>
+              </button>
+            </div>
         </div>
       </IonContent>
     </IonPage>
