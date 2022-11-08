@@ -2,15 +2,15 @@ import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from 
 import { cloneElement, useEffect } from 'react';
 import ColleagueCard from '../components/ColleagueCard';
 import ExploreContainer from '../components/ExploreContainer';
-import './MainPage.css';
+import './AllColleagues.css';
 
-const MainPage: React.FC = () => {
+const AllColleagues: React.FC = () => {
 
     let colleaguelist;
 
-    ListFavoriteColleagues();
+    ListColleagues();
 
-    function ListFavoriteColleagues() {
+    function ListColleagues() {
         colleaguelist = [];
 
         //Haal Op
@@ -21,8 +21,8 @@ const MainPage: React.FC = () => {
             colleaguelist.push(<br />);
         }
 
-        /*for (let i = 0; i < 5; i++) {
-            colleaguelist.push(<ColleagueCard name="a" location='Office' status='Available' />);
+        /* for (let i = 0; i < 5; i++) {
+            colleaguelist.push(<ColleagueCard name={i} location='Office' status='Available' />);
             colleaguelist.push(<br />);
         }*/
     }
@@ -31,18 +31,17 @@ const MainPage: React.FC = () => {
         <IonPage>
             <IonContent fullscreen>
                 <div className='content'>
-                    <h1>Welcome, *name*</h1>
-                    <button className='btn'>View All Colleagues</button> <br /> <br />
+                     <h1>All Colleagues</h1> <br /> <br />
                     <div className='searchdiv'>
-                        <input type="text" className='searchbox' placeholder='Search Favorite Colleagues...'></input> <input type='button' className='searchbtn' value='Search'/>
+                        <input type="text" className='searchbox' placeholder='Search Colleagues...'></input> <input type='button' className='searchbtn' value='Search' />
                     </div> <br />
                     <div className='colleagues'>
                         {colleaguelist}
-                    </div> 
+                    </div>
                 </div>
             </IonContent>
         </IonPage>
     );
 };
 
-export default MainPage;
+export default AllColleagues;

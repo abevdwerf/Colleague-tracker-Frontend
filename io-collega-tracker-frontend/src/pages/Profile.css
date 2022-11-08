@@ -31,8 +31,14 @@ ion-content {
     transform: translateY(-50%);
 }
 
-h4 {
+h4, h5, label {
     color: black;
     font-family: 'TT Commons Pro';
-    padding-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+img {
+    border-radius: 360px;
+    width: 100px;
+    height: 100px;
 }

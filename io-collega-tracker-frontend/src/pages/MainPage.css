@@ -22,3 +22,32 @@ h2 {
     font-family: 'TT Commons Pro';
     padding-bottom: 20px;
 }
+
+.searchbox {
+    background: #F4F4F4;
+    border-radius: 5px;
+    border-color: #E5E5E5;
+    border: none;
+    text-align: center;
+    min-width: 250px;
+    min-height: 40px;
+    font-family: 'TT Commons Pro';
+    color: black;
+    display: inline;
+}
+
+.searchbtn {
+    background-color: #4E54C5;
+    color: white;
+    font-family: 'TT Commons Pro';
+    min-height: 40px;
+    border-radius: 5px;
+    width: 70px;
+    border: none;
+    display: inline;
+}
+
+.searchdiv {
+    align-items: center;
+}
+

@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, medkit, triangle, location, planet } from 'ionicons/icons';
+import { ellipse, square, medkit, triangle, location, planet, settings, home, person } from 'ionicons/icons';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
@@ -34,8 +34,10 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
-import LocationSetting from './pages/LocationSetting';
+import LocationSetting from './pages/Profile';
 import MainPage from './pages/MainPage';
+import AllColleagues from './pages/AllColleagues';
+import Settings from './pages/Settings';
 
 setupIonicReact();
 
@@ -56,24 +58,34 @@ const App: React.FC = () => (
           <Route exact path="/loginsuccess">
             <LoginSuccess />
           </Route>
-          <Route exact path="/locationsetting">
+          <Route exact path="/profile">
             <LocationSetting />
           </Route>
           <Route exact path="/mainpage">
             <MainPage />
+          </Route>
+          <Route exact path="/allcolleagues">
+            <AllColleagues />
+          </Route>
+          <Route exact path="/settings">
+            <Settings />
           </Route>
           <Route exact path="/">
             <Redirect to="/googlelogin" />
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom" id="tab-bar">
-        <IonTabButton tab="tab6" href="/mainpage">
-            <IonIcon icon={planet} />
+        <IonTabButton tab="tab1" href="/mainpage">
+            <IonIcon icon={home} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
-          <IonTabButton tab="tab5" href="/locationsetting">
-            <IonIcon icon={location} />
-            <IonLabel>Location</IonLabel>
+          <IonTabButton tab="tab2" href="/profile">
+            <IonIcon icon={person} />
+            <IonLabel>Profile</IonLabel>
+          </IonTabButton>
+          <IonTabButton tab="tab3" href="/settings">
+            <IonIcon icon={settings} />
+            <IonLabel>Settings</IonLabel>
           </IonTabButton>
         </IonTabBar>
       </IonTabs>

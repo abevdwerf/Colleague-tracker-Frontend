@@ -1,9 +1,12 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
-import "./LocationSetting.css"
+import "./Profile.css"
 
 const LocationSetting: React.FC = () => {
+
+  //profiel data ophalen
+
   function SetNo() {
     let yesbtn = document.getElementById('yesbtn');
     let nobtn = document.getElementById('nobtn');
@@ -60,11 +63,18 @@ const LocationSetting: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='content'>
-          <h1>Set your location:</h1> <br />
+          <h1>Your Profile</h1> <br />
           <div className='blockcontainer'>
-            <h4>Are you at the office today?</h4>
+            <div className="profilepic">
+              <img src='https://ia801703.us.archive.org/6/items/twitter-default-pfp/e.png'></img>
+            </div>
+            <h4>*FIRSTNAME* *LASTNAME*</h4>
+            <h5>Role(s):</h5>
+            <label>*ROLES*</label>
+            <h5>Are you at the office today?</h5>
             <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>Yes</button>
-            <button id="nobtn" className='togglebtn' onClick={SetNo}>No</button>
+            <button id="nobtn" className='togglebtn' onClick={SetNo}>No</button> <br /> <br />
+            <button className='togglebtn togglebtn-active'>Notify</button>
           </div>
         </div>
       </IonContent>

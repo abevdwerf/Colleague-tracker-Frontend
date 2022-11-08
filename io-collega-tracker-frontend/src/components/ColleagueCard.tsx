@@ -19,7 +19,7 @@ const ColleagueCard: React.FC<ColleagueCardProps> = ({name, location, status}) =
                             <label className='colleaguelabel'>Status: {status}</label>
                         </td>
                         <td width= "20%">
-                        <button className='togglebtn-active togglebtn'>kaassoufflee</button>
+                        <button className='togglebtn-active togglebtn'>Notify</button>
                         </td>
                     </tr>
                 </tbody>
