@@ -25,7 +25,7 @@ const GoogleLogin: React.FC = () => {
       }
   
   
-      axios.get(`http://localhost:8080/api/user/register`, config)
+      axios.get(process.env.REACT_APP_ROOT_API + `/user/register`, config)
         .then(res => {
           if (res.status === 200) {
             isLoggedIn = true;
@@ -44,7 +44,7 @@ const GoogleLogin: React.FC = () => {
     function redirectToApp(){
       console.log(isLoggedIn)
       if (isLoggedIn) {
-        axios.get(`http://localhost:8080/api/user/is-verified`, config)
+        axios.get(process.env.REACT_APP_ROOT_API + `/user/is-verified`, config)
         .then(res => {
           console.log(res.data);
           if (res.data.statusCode === 200) {

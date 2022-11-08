@@ -26,7 +26,7 @@ const MailConfirm: React.FC = () => {
     present({
       message: 'Sending Email...'
     })
-    axios.post(`http://localhost:8080/api/email/verify`, mail , config)
+    axios.post(process.env.REACT_APP_ROOT_API + `/email/verify`, mail , config)
         .then(res => {
           console.log(res)
           if (res.data.statusCode === 200) {

@@ -18,7 +18,7 @@ const VerifyWait: React.FC = () => {
           idToken: localStorage.getItem("token"),
         }
       }
-      axios.get(`http://localhost:8080/api/user/is-verified`, config)
+      axios.get(process.env.REACT_APP_ROOT_API + `/user/is-verified`, config)
         .then(res => {
           console.log(res.data);
           if (res.data.statusCode === 200) {

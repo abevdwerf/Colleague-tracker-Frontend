@@ -15,7 +15,7 @@ const LocationSetting: React.FC = () => {
             }
           }
 
-        axios.post(`http://localhost:8080/api/status/set`, null, config)
+        axios.post(process.env.REACT_APP_ROOT_API + `/status/set`, null, config)
         .then(res => {
           console.log(res)
         })
@@ -35,7 +35,7 @@ const LocationSetting: React.FC = () => {
             }
           }
 
-        axios.post(`http://localhost:8080/api/status/set`, null, config)
+        axios.post(process.env.REACT_APP_ROOT_API + `/status/set`, null, config)
         .then(res => {
           console.log(res)
         })
