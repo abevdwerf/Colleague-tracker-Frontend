@@ -14,9 +14,6 @@ const GoogleLogin: React.FC = () => {
   const [data, setData] = useState('');
   
   (document.getElementById("tab-bar") as HTMLElement).hidden = true;
-  
-  var anus = document.getElementsByClassName('container');
-  console.log(anus);
 
   useEffect(() => {
     async function handleCallbackResponse(response:any) {
