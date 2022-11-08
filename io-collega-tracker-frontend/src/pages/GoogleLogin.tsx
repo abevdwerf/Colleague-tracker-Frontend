@@ -3,6 +3,7 @@ import { useEffect, useState} from 'react'
 import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
+import { IonTabBar } from '@ionic/react';
 
 declare var google:any;
 
@@ -10,8 +11,12 @@ const GoogleLogin: React.FC = () => {
 
   //const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('')
-  const [data, setData] = useState('')
+  const [data, setData] = useState('');
   
+  (document.getElementById("tab-bar") as HTMLElement).hidden = true;
+  
+  var anus = document.getElementsByClassName('container');
+  console.log(anus);
 
   useEffect(() => {
     async function handleCallbackResponse(response:any) {
@@ -37,9 +42,6 @@ const GoogleLogin: React.FC = () => {
         .catch(err => {
           console.log(err)
         })
-      
-      
-      
   
     function redirectToApp(){
       console.log(isLoggedIn)
@@ -79,9 +81,6 @@ const GoogleLogin: React.FC = () => {
     );
 
   }, [])
-
-
-
 
   return (
     <IonPage>

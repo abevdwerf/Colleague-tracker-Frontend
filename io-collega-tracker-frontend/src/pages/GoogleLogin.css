@@ -3,23 +3,9 @@
     min-width: 150px;
     min-height: 40px; */
     border: none;
+    background-color: transparent;
     font-family: 'TT Commons Pro';
-    color: black;
     margin-top: 25px;
-    border-radius: 3px;
-}
-
-.textbox {
-    margin-top: 20px;
-    background: #F4F4F4;
-    border-radius: 3px;
-    border-color: #E5E5E5;
-    border: none;
-    text-align: center;
-    min-width: 200px;
-    min-height: 40px;
-    font-family: 'TT Commons Pro';
-    color: black
 }
 
 .label {
@@ -37,13 +23,11 @@ ion-content {
     position: absolute;
     left: 0;
     right: 0;
-    top: 50%;
     transform: translateY(-50%);
 }
 
 form {
     padding: 75px;
-    padding-top: 150px
 }
 
 .terms {

@@ -37,13 +37,12 @@ ion-content {
     position: absolute;
     left: 0;
     right: 0;
-    top: 50%;
     transform: translateY(-50%);
 }
 
 .content {
     padding: 50px;
-    padding-top: 150px;
+    padding-top: 50px;
 }
 
 form {
