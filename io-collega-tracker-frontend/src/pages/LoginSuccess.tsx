@@ -10,7 +10,7 @@ const LoginSuccess: React.FC = () => {
   useEffect(() => {
 
     function redirectToApp() {
-      window.location.href = "/locationSetting"
+      window.location.href = "/mainpage"
     }
 
     setTimeout(redirectToApp, 5000)

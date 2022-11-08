@@ -43,7 +43,7 @@ const GoogleLogin: React.FC = () => {
         .then(res => {
           console.log(res.data);
           if (res.data.statusCode === 200) {
-            window.location.href="/locationSetting"
+            window.location.href="/mainpage"
           } else if (res.data.statusCode === 401) {
             window.location.href="/mailConfirm"
           }
