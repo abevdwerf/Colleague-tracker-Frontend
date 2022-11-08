@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonLoading , useIonAlert } from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonLoading, useIonAlert } from '@ionic/react';
 import ExploreContainer from '../components/ExploreContainer';
 import axios from 'axios';
 import './MailConfirm.css';
@@ -8,12 +8,14 @@ const MailConfirm: React.FC = () => {
   const [presentAlert] = useIonAlert();
 
 
-  function redirectToVerifyWait(){
-    window.location.href="/verifyWait";
+  (document.getElementById("tab-bar") as HTMLElement).hidden = true;
+
+  function redirectToVerifyWait() {
+    window.location.href = "/verifyWait";
   }
 
-  function submitEmail(){
-    
+  function submitEmail() {
+
 
     let config = {
       headers: {
@@ -26,35 +28,35 @@ const MailConfirm: React.FC = () => {
     present({
       message: 'Sending Email...'
     })
-    axios.post(process.env.REACT_APP_ROOT_API + `/email/verify`, mail , config)
-        .then(res => {
-          console.log(res)
-          if (res.data.statusCode === 200) {
-            dismiss();
-            redirectToVerifyWait()
-          } else if (res.data.statusCode === 400) {
-            dismiss();
-            presentAlert({
-              header: 'Mail Verification',
-              message: 'Your account has already been verified!',
-              buttons: ['Continue to App'],
-            })
-          }
+    axios.post(process.env.REACT_APP_ROOT_API + `/email/verify`, mail, config)
+      .then(res => {
+        console.log(res)
+        if (res.data.statusCode === 200) {
+          dismiss();
+          redirectToVerifyWait()
+        } else if (res.data.statusCode === 400) {
+          dismiss();
+          presentAlert({
+            header: 'Mail Verification',
+            message: 'Your account has already been verified!',
+            buttons: ['Continue to App'],
+          })
+        }
 
-          else if (res.data.statusCode === 401) {
-            dismiss();
-            presentAlert({
-              header: 'Mail Verification',
-              message: 'This email is already in use, please use a different email',
-              buttons: ['OK'],
-            })
-          }
+        else if (res.data.statusCode === 401) {
           dismiss();
-        })
-        .catch(err => {
-          dismiss();
-          console.log(err)
-        })
+          presentAlert({
+            header: 'Mail Verification',
+            message: 'This email is already in use, please use a different email',
+            buttons: ['OK'],
+          })
+        }
+        dismiss();
+      })
+      .catch(err => {
+        dismiss();
+        console.log(err)
+      })
 
   }
 
@@ -65,10 +67,10 @@ const MailConfirm: React.FC = () => {
           <i className="fa-solid fa-envelope fa-3x"></i>
           <h1>Enter your iO mail address:</h1>
           <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' /> <br /><br /><br />
-          
-          <label className='container'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
-            <input type="checkbox"/>
-            <span className="checkmark"></span> 
+
+          <label className='checkcontainer'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
+            <input type="checkbox" />
+            <span className="checkmark"></span>
           </label> <br /><br /><br />
           <div className='submit'>
             <label className="label">Verify your email address to prove that you are an iO employee.</label> <br />

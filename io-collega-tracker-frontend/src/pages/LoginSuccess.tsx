@@ -5,15 +5,17 @@ import "./LoginSuccess.css"
 
 const LoginSuccess: React.FC = () => {
 
+  (document.getElementById("tab-bar") as HTMLElement).hidden = true;
+
   useEffect(() => {
 
-    function redirectToApp(){
-      window.location.href="/locationSetting"
+    function redirectToApp() {
+      window.location.href = "/locationSetting"
     }
 
     setTimeout(redirectToApp, 5000)
-    
-   }, [])
+
+  }, [])
 
   return (
     <IonPage>

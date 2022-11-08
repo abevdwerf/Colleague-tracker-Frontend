@@ -41,7 +41,6 @@ ion-content {
     position: absolute;
     left: 0;
     right: 0;
-    top: 50%;
     transform: translateY(-50%);
 }
 
@@ -58,7 +57,7 @@ ion-content {
 }
 
 /* Customize the label (the container) */
-.container {
+.checkcontainer {
     display: block;
     position: relative;
     padding-left: 10px;
@@ -68,7 +67,7 @@ ion-content {
   }
   
   /* Hide the browser's default checkbox */
-  .container input {
+  .checkcontainer input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -88,12 +87,12 @@ ion-content {
   }
   
   /* On mouse-over, add a grey background color */
-  .container:hover input ~ .checkmark {
+  .checkcontainer:hover input ~ .checkmark {
     background-color: white;
   }
   
   /* When the checkbox is checked, add a blue background */
-  .container input:checked ~ .checkmark {
+  .checkcontainer input:checked ~ .checkmark {
     background-color: #2196F3;
   }
   
@@ -105,12 +104,12 @@ ion-content {
   }
   
   /* Show the checkmark when checked */
-  .container input:checked ~ .checkmark:after {
+  .checkcontainer input:checked ~ .checkmark:after {
     display: block;
   }
   
   /* Style the checkmark/indicator */
-  .container .checkmark:after {
+  .checkcontainer .checkmark:after {
     margin-top: 2px;
     margin-left: 5px;
     width: 2px;

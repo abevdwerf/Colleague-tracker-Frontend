@@ -1,0 +1,14 @@
+.settingsbtn {
+    width: 300px;
+    background-color: transparent;
+    color: white;
+    font-family: 'TT Commons Pro';
+    font-size: large;
+    height: 50px;
+    border-bottom: solid 1px white;
+    text-align: left;
+}
+
+.settingsbtn:hover {
+    filter: brightness(75%)
+}

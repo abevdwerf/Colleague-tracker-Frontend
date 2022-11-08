@@ -1,6 +1,6 @@
 .togglebtn {
-    color: white;
-    background-color: #4E54C5;
+    color: black;
+    background-color: #e6e6e6;
     height: 40px;
     font-family: 'TT Commons Pro';
     border-radius: 3px;
@@ -9,6 +9,10 @@
     filter: drop-shadow(1px 1px 1px black)
 }
 
+.togglebtn-active {
+    background-color: #4E54C5;
+    color: white;
+}
 
 .blockcontainer {
     margin-left: auto;
@@ -24,12 +28,17 @@ ion-content {
     position: absolute;
     left: 0;
     right: 0;
-    top: 50%;
     transform: translateY(-50%);
 }
 
-h4 {
+h4, h5, label {
     color: black;
     font-family: 'TT Commons Pro';
-    padding-bottom: 20px;
+    padding-bottom: 5px;
+}
+
+img {
+    border-radius: 360px;
+    width: 100px;
+    height: 100px;
 }

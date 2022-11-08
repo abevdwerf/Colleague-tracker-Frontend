@@ -1,4 +1,4 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, isPlatform, IonIcon} from '@ionic/react';
+import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, isPlatform, IonIcon, IonTabBar} from '@ionic/react';
 import { logoGoogle } from 'ionicons/icons';
 import { useEffect, useState} from 'react'
 import axios from 'axios';
@@ -9,6 +9,8 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 //declare var google:any;
 
 const GoogleLogin: React.FC = () => {
+  (document.getElementById("tab-bar") as HTMLElement).hidden = true;
+
 
   async function googleSignIn() {
     const response = await GoogleAuth.signIn()
@@ -33,9 +35,6 @@ const GoogleLogin: React.FC = () => {
         .catch(err => {
           console.log(err)
         })
-      
-      
-      
   
     function redirectToApp(){
       console.log(isLoggedIn)
@@ -69,9 +68,6 @@ const GoogleLogin: React.FC = () => {
     
 
   }, [])
-
-
-
 
   return (
     <IonPage>

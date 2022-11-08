@@ -5,12 +5,14 @@ import ExploreContainer from '../components/ExploreContainer';
 import './VerifyWait.css';
 
 const VerifyWait: React.FC = () => {
-  
+
   const [ticking, setTicking] = useState(true),
-        [count, setCount] = useState(0)
+    [count, setCount] = useState(0);
+
+    (document.getElementById("tab-bar") as HTMLElement).hidden = true;
 
   useEffect(() => {
-    const timer = setTimeout(() => ticking && setCount(count+1), 1e3)
+    const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
 
     if (count % 3 === 0) {
       let config = {
@@ -23,7 +25,7 @@ const VerifyWait: React.FC = () => {
           console.log(res.data);
           if (res.data.statusCode === 200) {
             clearTimeout(timer)
-            window.location.href="/loginSuccess"
+            window.location.href = "/loginSuccess"
           }
         })
         .catch(err => {
@@ -32,7 +34,7 @@ const VerifyWait: React.FC = () => {
     }
 
     return () => clearTimeout(timer)
-   }, [count, ticking])
+  }, [count, ticking])
 
 
 
@@ -40,7 +42,7 @@ const VerifyWait: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='content'>
-          <h1>A verification mail has been sent to this email address:</h1> <br/>
+          <h1>A verification mail has been sent to this email address:</h1> <br />
           <label className="mail">{localStorage.getItem("mail")}</label> <br />
           <i className="fa-solid fa-envelope-open-text fa-5x"></i>
           <div className='submit'>
