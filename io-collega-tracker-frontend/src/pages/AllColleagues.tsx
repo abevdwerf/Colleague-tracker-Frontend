@@ -15,11 +15,11 @@ const AllColleagues: React.FC = () => {
 
         //Haal Op
 
-        for (let i = 0; i < colleaguelist.length; i++) {
-            //zet in props
-            colleaguelist.push(<ColleagueCard name={colleaguelist[i].props.name} location={colleaguelist[i].props.location} status={colleaguelist[i].props.status} />);
-            colleaguelist.push(<br />);
-        }
+        // for (let i = 0; i < colleaguelist.length; i++) {
+        //     //zet in props
+        //     colleaguelist.push(<ColleagueCard name={colleaguelist[i].props.name} location={colleaguelist[i].props.location} status={colleaguelist[i].props.status} />);
+        //     colleaguelist.push(<br />);
+        // }
 
         /* for (let i = 0; i < 5; i++) {
             colleaguelist.push(<ColleagueCard name={i} location='Office' status='Available' />);
@@ -32,9 +32,9 @@ const AllColleagues: React.FC = () => {
             <IonContent fullscreen>
                 <div className='content'>
                      <h1>All Colleagues</h1> <br /> <br />
-                    <div className='searchdiv'>
+                    {/* <div className='searchdiv'>
                         <input type="text" className='searchbox' placeholder='Search Colleagues...'></input> <input type='button' className='searchbtn' value='Search' />
-                    </div> <br />
+                    </div> <br /> */}
                     <div className='colleagues'>
                         {colleaguelist}
                     </div>

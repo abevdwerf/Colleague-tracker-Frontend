@@ -66,11 +66,11 @@ const LocationSetting: React.FC = () => {
           <h1>Your Profile</h1> <br />
           <div className='blockcontainer'>
             <div className="profilepic">
-              <img src='https://ia801703.us.archive.org/6/items/twitter-default-pfp/e.png'></img>
+              <img alt='profile picture' src={localStorage.getItem("photo_url") || undefined}></img>
             </div>
-            <h4>*FIRSTNAME* *LASTNAME*</h4>
-            <h5>Role(s):</h5>
-            <label>*ROLES*</label>
+            <h4>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h4>
+            {/* <h5>Role(s):</h5>
+            <label>*ROLES*</label> */}
             <h5>Are you at the office today?</h5>
             <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>Yes</button>
             <button id="nobtn" className='togglebtn' onClick={SetNo}>No</button> <br /> <br />

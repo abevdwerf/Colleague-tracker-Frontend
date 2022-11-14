@@ -29,6 +29,9 @@ const GoogleLogin: React.FC = () => {
             isLoggedIn = true;
             console.log(isLoggedIn)
             localStorage.setItem("token", response.authentication.idToken)
+            localStorage.setItem("first_name", response.givenName)
+            localStorage.setItem("last_name", response.familyName)
+            localStorage.setItem("photo_url", response.imageUrl)
             redirectToApp()
           }
         })
