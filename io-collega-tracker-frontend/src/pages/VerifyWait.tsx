@@ -47,7 +47,7 @@ const VerifyWait: React.FC = () => {
           <i className="fa-solid fa-envelope-open-text fa-5x"></i>
           <div className='submit'>
             <label className="label">Please verify your entered mail address by clicking on the link in the sent verification mail.</label> <br />
-            <button className="btn">Resend Email</button>
+            {/* <button className="btn">Resend Email</button> */}
           </div>
         </div>
       </IonContent>

@@ -80,10 +80,8 @@ const MainPage: React.FC = () => {
       
         }
       
-       let APIcall = ListFavoriteColleagues();
-      console.log(APIcall)
+       let APIcall = ListFavoriteColleagues();0
       for (let i = 0; i < APIcall.length; i++) {
-          console.log(APIcall)
         //   colleaguelist.push(<ColleagueCard name={APIcall[i].firstName} location={APIcall[i].status} status={"Test"} />);
         colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} />);
           colleaguelist.push(<br />);

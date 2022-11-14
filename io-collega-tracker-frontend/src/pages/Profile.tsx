@@ -74,7 +74,6 @@ const LocationSetting: React.FC = () => {
             <h5>Are you at the office today?</h5>
             <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>Yes</button>
             <button id="nobtn" className='togglebtn' onClick={SetNo}>No</button> <br /> <br />
-            <button className='togglebtn togglebtn-active'>Notify</button>
           </div>
         </div>
       </IonContent>

@@ -9,6 +9,17 @@
     border-radius: 3px;
 }
 
+.btn-disabled {
+    background: rgb(212, 212, 212);
+    min-width: 150px;
+    min-height: 40px;
+    border: none;
+    font-family: 'TT Commons Pro';
+    color: black;
+    margin-top: 25px;
+    border-radius: 3px;
+}
+
 i{
     color: white;
 }
