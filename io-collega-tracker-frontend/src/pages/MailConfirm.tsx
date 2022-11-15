@@ -88,8 +88,9 @@ const MailConfirm: React.FC = () => {
             <span className="checkmark"></span>
           </label> <br /><br /><br />
           <div className='submit'>
-            <label className="label">Verify your email address to prove that you are an iO employee.</label> <br />
-            <button onClick={submitEmail} className='btn-disabled' id="submit">Submit</button>
+            <button onClick={submitEmail} className='btn-disabled' id="submit"><b>CONFIRM EMAIL</b></button><br /><br />
+            <label className="label">Verify your email address to prove</label><br />
+            <label className="label">that you are an iO employee.</label>
           </div>
         </div>
       </IonContent>

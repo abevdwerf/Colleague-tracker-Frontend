@@ -68,12 +68,12 @@ const LocationSetting: React.FC = () => {
             <div className="profilepic">
               <img alt='profile picture' src={localStorage.getItem("photo_url") || undefined}></img>
             </div>
-            <h4>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h4>
+            <h2>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h2>
             {/* <h5>Role(s):</h5>
             <label>*ROLES*</label> */}
             <h5>Are you at the office today?</h5>
-            <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>Yes</button>
-            <button id="nobtn" className='togglebtn' onClick={SetNo}>No</button> <br /> <br />
+            <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>YES</button>
+            <button id="nobtn" className='togglebtn' onClick={SetNo}>NO</button> <br /> <br />
           </div>
         </div>
       </IonContent>
