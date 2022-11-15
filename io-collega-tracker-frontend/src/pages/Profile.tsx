@@ -1,18 +1,53 @@
 import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
 import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import ExploreContainer from '../components/ExploreContainer';
 import "./Profile.css"
 
 const LocationSetting: React.FC = () => {
 
-  //profiel data ophalen
+  const [Status, SetStatus] = useState("unkown");
 
-  function SetNo() {
+  useEffect(() => {
+    GetStatus();
+    if (Status == "Office")
+    {
+      SetYesButtonActive();
+    }
+    else{
+      SetNoButtonActive();
+    }
+  }, []);
+
+  //profiel data ophalen
+  function GetStatus() {
+    let config = {
+      headers: {
+        idToken: localStorage.getItem("token"),
+      }
+    }
+
+    axios.get(process.env.REACT_APP_ROOT_API + `/status/get`, config)
+      .then((res : any) => {
+        if (res.status === 200) {
+          SetStatus(res.data.status);
+        }
+      })
+      .catch((err : any) => {
+        console.log(err)
+      });
+  }
+  
+  function SetNoButtonActive() {
     let yesbtn = document.getElementById('yesbtn');
     let nobtn = document.getElementById('nobtn');
 
     yesbtn?.classList.remove("togglebtn-active");
     nobtn?.classList.add("togglebtn-active");
+  }
+
+  function SetNo() {
+    SetNoButtonActive();
 
     let config = {
       headers: {
@@ -26,19 +61,24 @@ const LocationSetting: React.FC = () => {
 
     axios.post(process.env.REACT_APP_ROOT_API + `/status/set`, null, config)
       .then(res => {
-        console.log(res)
+        console.log(res);
+        GetStatus();
       })
       .catch(err => {
         console.log(err)
       })
   }
 
-  function SetYes() {
+  function SetYesButtonActive() {
     let yesbtn = document.getElementById('yesbtn');
     let nobtn = document.getElementById('nobtn');
 
     yesbtn?.classList.add("togglebtn-active");
     nobtn?.classList.remove("togglebtn-active");
+  }
+
+  function SetYes() {
+    SetYesButtonActive();
 
     let config = {
       headers: {
@@ -52,7 +92,8 @@ const LocationSetting: React.FC = () => {
 
     axios.post(process.env.REACT_APP_ROOT_API + `/status/set`, null, config)
       .then(res => {
-        console.log(res)
+        console.log(res);
+        GetStatus();
       })
       .catch(err => {
         console.log(err)
@@ -68,7 +109,21 @@ const LocationSetting: React.FC = () => {
             <div className="profilepic">
               <img alt='profile picture' src={localStorage.getItem("photo_url") || undefined}></img>
             </div>
-            <h2>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h2>
+            <div className="profilecontainer">
+              <h2>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h2>
+              <div className="profilestatus">
+                {(() => {
+                  if (Status == "Office") {
+                    return <i className="fa-solid fa-building"></i>;
+                  } else if (Status == "Home"){
+                    return <i className="fa-solid fa-house"></i>;
+                  } else {
+                    return <i className="fa-solid fa-location-pin-lock"></i>;
+                  }
+                })()}
+                <p>{Status}</p>
+              </div>
+            </div>
             {/* <h5>Role(s):</h5>
             <label>*ROLES*</label> */}
             <h5>Are you at the office today?</h5>

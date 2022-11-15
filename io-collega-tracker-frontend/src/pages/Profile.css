@@ -5,7 +5,7 @@
     font-family: 'TT Commons Pro';
     font-weight: bold;
     border: 3px solid transparent;
-    width: 100px;
+    width: 110px;
     filter: drop-shadow(0px 4px 3px #939393)
 }
 
@@ -23,12 +23,11 @@
 }
 
 .blockcontainer {
-    margin-left: auto;
-    margin-right: auto;
+    margin: auto;
     background-color: white;
     border-radius: 16px;
     width: 300px;
-    padding: 20px;
+    padding: 40px;
 }
 
 ion-content {
@@ -43,7 +42,48 @@ h2, h5, label {
     color: black;
     font-family: 'TT Commons Pro';
     padding-bottom: 5px;
-    font-weight: bold;;
+    font-weight: bold;
+}
+
+.profilecontainer {
+    text-align: start;
+    margin-bottom: 40px;
+}
+
+.profilestatus {
+    font-weight: bold;
+    color: #989090;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+/* icons */
+.fa-building {
+    color: #989090;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.fa-house {
+    color: #989090;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+.fa-location-pin-lock {
+    color: #989090;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+
+h2 {
+    color: black !important;
+    line-height: 3px;
+}
+
+p {
+    display: inline;
+    margin-left: 3px;
 }
 
 img {

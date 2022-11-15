@@ -1,13 +1,3 @@
-
-.blockcontainer {
-    margin-left: auto;
-    margin-right: auto;
-    background-color: white;
-    border-radius: 20px;
-    width: 300px;
-    padding: 20px;
-}
-
 ion-content {
     text-align: center;
     position: absolute;
@@ -17,11 +7,11 @@ ion-content {
     transform: translateY(-50%);
 }
 
-h2 {
+/* h2 {
     color: white;
     font-family: 'TT Commons Pro';
     padding-bottom: 20px;
-}
+} */
 
 .searchbox {
     background: #F4F4F4;
