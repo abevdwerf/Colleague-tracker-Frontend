@@ -37,16 +37,22 @@ jobs:
         run: CI=false ionic build
       - name: Sync Ionic with Android
         run: CI=false ionic cap sync android
+      - name: Save ./android as artifact
+        uses: actions/upload-artifact@v1
+        with:
+         name: android
+         path: ./android
 
 
   build_apk:
    name: Generate APK
    needs: build_ionic_and_sync
    runs-on: ubuntu-latest
-   defaults:
-      run:
-        working-directory: ./io-collega-tracker-frontend/android
    steps:
+     - name: Download APK from build
+       uses: actions/download-artifact@v1
+       with:
+         name: android
      - name: Checkout
        uses: actions/checkout@v3
      - name: Setup JDK
@@ -55,14 +61,16 @@ jobs:
          distribution: temurin
          java-version: "17"
      - name: Set execution flag for gradlew
+       working-directory: android
        run: chmod +x gradlew
      - name: Build APK
+       working-directory: android
        run: bash ./gradlew assembleDebug --stacktrace
      - name: Upload APK
        uses: actions/upload-artifact@v1
        with:
          name: apk
-         path: app/build/outputs/apk/debug/app-debug.apk
+         path: android/app/build/outputs/apk/debug/app-debug.apk
 
   release:
    name: Release APK
