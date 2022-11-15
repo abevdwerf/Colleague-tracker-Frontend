@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
          name: android
-         path: ./android
+         path: ./io-collega-tracker-frontend/android
 
 
   build_apk:
