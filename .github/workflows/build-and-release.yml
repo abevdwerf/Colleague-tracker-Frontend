@@ -61,7 +61,6 @@ jobs:
          distribution: temurin
          java-version: "17"
      - name: Set execution flag for gradlew
-       working-directory: android
        run: chmod +x gradlew
      - name: Build APK
        working-directory: android
