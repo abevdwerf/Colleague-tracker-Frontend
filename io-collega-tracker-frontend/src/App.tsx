@@ -15,6 +15,7 @@ import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
 import VerifyWait from './pages/VerifyWait';
+import MacPage from './pages/MacPage';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -38,6 +39,8 @@ import LocationSetting from './pages/Profile';
 import MainPage from './pages/MainPage';
 import AllColleagues from './pages/AllColleagues';
 import Settings from './pages/Settings';
+import AddMac from './pages/AddMac';
+import EditMac from './pages/EditMac';
 
 setupIonicReact();
 
@@ -69,6 +72,15 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/settings">
             <Settings />
+          </Route>
+          <Route exact path="/macpage">
+            <MacPage />
+          </Route>
+          <Route exact path="/addmac">
+            <AddMac />
+          </Route>
+          <Route exact path="/editmac">
+            <EditMac />
           </Route>
           <Route exact path="/">
             <Redirect to="/googlelogin" />

@@ -25,11 +25,12 @@ h2 {
 
 .searchbox {
     background: #F4F4F4;
-    border-radius: 5px;
+    border-radius: 10px;
     border-color: #E5E5E5;
     border: none;
-    text-align: center;
-    min-width: 250px;
+    text-align: left;
+    padding: 10px;;
+    min-width: 300px;
     min-height: 40px;
     font-family: 'TT Commons Pro';
     color: black;
@@ -39,15 +40,34 @@ h2 {
 .searchbtn {
     background-color: #4E54C5;
     color: white;
-    font-family: 'TT Commons Pro';
-    min-height: 40px;
+    height: 40px;
+    width: 40px;
     border-radius: 5px;
-    width: 70px;
-    border: none;
-    display: inline;
 }
 
 .searchdiv {
     align-items: center;
 }
 
+.searchdiv label {
+    color: white;
+}
+
+.searchdiv select {
+    background-color: white;
+    border: none;
+    border-radius: 5px;
+    margin-left: 20px;
+    font-family: 'TT Commons Pro';
+}
+
+.filterdiv {
+    background-color: rgba(0, 0, 0, 0.116);
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
+}
+
+.message {
+    color: white;
+}

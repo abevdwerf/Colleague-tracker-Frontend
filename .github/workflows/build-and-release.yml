@@ -1,9 +1,5 @@
-on:
- push:
-   branches:
-     - release
-   tags:
-     - "v*"
+on: [workflow_dispatch]
+
 
 jobs:
   build_apk:

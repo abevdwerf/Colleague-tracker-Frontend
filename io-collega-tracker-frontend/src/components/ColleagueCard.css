@@ -2,20 +2,23 @@
     margin-left: auto;
     margin-right: auto;
     background-color: white;
-    border-radius: 20px;
+    border-radius: 15px;
     width: 300px;
     padding: 10px;
-    padding-top: 2px;
     font-family: 'TT Commons Pro';
     text-align: left;
+    filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.571));
+}
+
+.colleaguecard .name {
+    font-size: large;
+    font-weight: bold;
+    padding-left: 10px;
 }
 
 .colleaguelabel {
     padding-left: 10px;
-}
-
-h3 {
-    text-align: center;
+    font-size: small;
 }
 
 .row {
