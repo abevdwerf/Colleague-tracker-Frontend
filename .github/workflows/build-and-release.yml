@@ -52,7 +52,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: io-collega-tracker-frontend/android/app/build/outputs/apk/debug/app-debug.apk
      
 
   release:
