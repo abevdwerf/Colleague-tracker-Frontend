@@ -1,5 +1,5 @@
 # Change Log
-## v19 = 15/11/2022
+## v19 - 15/11/2022
 In deze versie hebben we een zoek & filter functie gemaakt, de gebruiker kan op voor en achternaam zoeken van een andere gebruiker. Dit is nog niet de uiteindelijke versie van de UI. Ook zijn de enige filters op dit moment thuis en op kantoor, we zouden graag van jullie willen horen waar jullie graag meer op willen kunnen filteren.
 
 De UI op de homepagina is wel een beetje aangepast.
