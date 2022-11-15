@@ -34,7 +34,7 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build App
-        run: ionic build
+        run: CI=false ionic build
       - name: Sync Ionic with Android
         run: ionic cap sync android
 
