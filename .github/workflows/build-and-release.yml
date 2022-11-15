@@ -9,6 +9,9 @@ jobs:
   build_ionic_and_sync:
     name: Build Ionic App and sync to Android
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./io-collega-tracker-frontend
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -27,6 +30,9 @@ jobs:
    name: Generate APK
    needs: build_ionic_and_sync
    runs-on: ubuntu-latest
+   defaults:
+      run:
+        working-directory: ./io-collega-tracker-frontend/android
    steps:
      - name: Checkout
        uses: actions/checkout@v3
@@ -36,16 +42,13 @@ jobs:
          distribution: temurin
          java-version: "17"
      - name: Set execution flag for gradlew
-       working-directory: ./android
        run: chmod +x gradlew
      - name: Build APK
-       working-directory: ./android
        run: bash ./gradlew assembleDebug --stacktrace
      - name: Upload APK
        uses: actions/upload-artifact@v1
        with:
          name: apk
-         working-directory: ./android
          path: app/build/outputs/apk/debug/app-debug.apk
 
   release:
