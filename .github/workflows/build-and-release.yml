@@ -36,7 +36,7 @@ jobs:
       - name: Build App
         run: CI=false ionic build
       - name: Sync Ionic with Android
-        run: ionic cap sync android
+        run: CI=false ionic cap sync android
 
 
   build_apk:
