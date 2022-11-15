@@ -61,14 +61,14 @@ jobs:
          distribution: temurin
          java-version: "17"
      - name: Set execution flag for gradlew
-       run: chmod +x android/gradlew
+       run: chmod +x /home/runner/work/Front-End/Front-End/android/gradlew
      - name: Build APK
-       run: bash android/gradlew assembleDebug --stacktrace
+       run: bash /home/runner/work/Front-End/Front-End/android/gradlew assembleDebug --stacktrace
      - name: Upload APK
        uses: actions/upload-artifact@v1
        with:
          name: apk
-         path: android/app/build/outputs/apk/debug/app-debug.apk
+         path: /home/runner/work/Front-End/Front-End/android/app/build/outputs/apk/debug/app-debug.apk
 
   release:
    name: Release APK
