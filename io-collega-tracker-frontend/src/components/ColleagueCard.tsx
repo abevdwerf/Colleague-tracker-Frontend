@@ -10,7 +10,7 @@ interface ColleagueCardProps {
 const ColleagueCard: React.FC<ColleagueCardProps> = ({first_name,last_name, location}) => {
     return (
         <div className='colleaguecard'>
-            <h3>{first_name} {last_name}</h3>
+            <label className='name'>{first_name} {last_name}</label>
             <table>
                 <tbody>
                     <tr>
@@ -24,7 +24,6 @@ const ColleagueCard: React.FC<ColleagueCardProps> = ({first_name,last_name, loca
                     </tr>
                 </tbody>
             </table>
-            <br />
         </div>
     );
 }
