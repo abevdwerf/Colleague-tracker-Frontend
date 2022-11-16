@@ -10,17 +10,19 @@ const LocationSetting: React.FC = () => {
 
   useEffect(() => {
     GetStatus();
+
     if (Status == "Office")
     {
       SetYesButtonActive();
     }
     else{
       SetNoButtonActive();
+      console.log("hoi");
     }
-  }, []);
+  }, [Status]);
 
   //profiel data ophalen
-  function GetStatus() {
+  async function GetStatus () {
     let config = {
       headers: {
         idToken: localStorage.getItem("token"),
@@ -127,7 +129,7 @@ const LocationSetting: React.FC = () => {
             {/* <h5>Role(s):</h5>
             <label>*ROLES*</label> */}
             <h5>Are you at the office today?</h5>
-            <button id="yesbtn" className='togglebtn togglebtn-active' onClick={SetYes}>YES</button>
+            <button id="yesbtn" className='togglebtn' onClick={SetYes}>YES</button>
             <button id="nobtn" className='togglebtn' onClick={SetNo}>NO</button> <br /> <br />
           </div>
         </div>
