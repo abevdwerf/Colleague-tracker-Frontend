@@ -75,6 +75,13 @@ const MailConfirm: React.FC = () => {
     }
   }
 
+  const handleKeyDown = (event:any) => {
+
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        submitEmail();
+    }
+  };
 
   return (
     <IonPage>
@@ -82,7 +89,7 @@ const MailConfirm: React.FC = () => {
         <div className='form'>
           <i className="fa-solid fa-envelope fa-3x"></i>
           <h1>Enter your iO mail address:</h1>
-          <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' /> <br /><br /><br />
+          <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' onKeyDown={handleKeyDown}/> <br /><br /><br />
           <label className='checkcontainer'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
             <input type="checkbox" id="myCheckbox" onChange={SetButton}/>
             <span className="checkmark"></span>
