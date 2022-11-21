@@ -6,6 +6,8 @@ plugins {
 }
 
 android {
+
+    namespace 'io.ionic.colleaguetracker'
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "io.ionic.starter"
