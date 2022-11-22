@@ -1,63 +1,16 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import React, { cloneElement, useEffect, useState } from 'react';
+import { IonContent, IonPage} from '@ionic/react';
+import React, { useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
-import ExploreContainer from '../components/ExploreContainer';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { location } from 'ionicons/icons';
 
 const MainPage: React.FC = () => {
 
-  // let colleaguelist:any;
-  // let colleagues:any;
-
-
-  // function ListFavoriteColleagues() {
-  //     console.log("getting colleagues")
-  //     colleaguelist = [];
-  //     colleagues = [];
-
-  //     let config = {
-  //         headers: {
-  //           idToken: localStorage.getItem("token"),
-  //         }
-  //       }
-
-
-  //     axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
-  //     .then(res => {
-  //         if (res.status === 200) {
-  //             console.log(res.data)
-  //             for (let index = 0; index < res.data.length; index++) {
-  //                 colleagues.push(res.data[index])
-
-  //             }
-  //             console.log(colleagues.length)
-  //             for (let i = 0; i < colleagues.length; i++) {
-  //                 //console.log(colleagues)
-  //                 colleaguelist.push(<ColleagueCard name={colleagues[i].firstName} location={colleagues[i].status} status="Test" />);
-  //                 colleaguelist.push(<br />);
-  //             }
-  //         }
-  //     })
-  //     .catch(err => {
-  //         console.log(err)
-  //     })
-
-
-  //    //console.log(colleagues)
-  //     //console.log(colleaguelist)
-
-  //     // for (let i = 0; i < 5; i++) {
-  //     //     colleaguelist.push(<ColleagueCard name="a" location='Office' status='Available' />);
-  //     //     colleaguelist.push(<br />);
-  //     // }
-  // }
-
   let colleaguelist = [] as any;
-  let colleagues = [];
   const [Users, setUsers] = useState([]);
+  const [SearchFocus, setSearchFocus] = useState(false);
+  const searchInput = useRef(null);
 
   const ListColleagues = () => {
 
@@ -66,7 +19,6 @@ const MainPage: React.FC = () => {
         idToken: localStorage.getItem("token"),
       }
     }
-
 
     useEffect(() => {
       axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
@@ -86,7 +38,6 @@ const MainPage: React.FC = () => {
 
   let APIcall = ListColleagues();
   for (let i = 0; i < APIcall.length; i++) {
-    //   colleaguelist.push(<ColleagueCard name={APIcall[i].firstName} location={APIcall[i].status} status={"Test"} />);
     colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
     colleaguelist.push(<br key={i + "br"} />);
   }
@@ -112,8 +63,21 @@ const MainPage: React.FC = () => {
 
   function SearchColleagues() {
     var input = (document.getElementById('searchbox') as HTMLInputElement).value;
+    const contentcontainer = document.getElementById("contentcontainer");
+    const colleaguelistdiv = document.getElementById("list");
     var APICall = Users;
     var names: Array<string> = [];
+
+    if (input == "")
+    {
+      contentcontainer!.hidden = false;
+      colleaguelistdiv!.hidden = true;
+    }
+    else
+    {
+      contentcontainer!.hidden = true;
+      colleaguelistdiv!.hidden = false;
+    }
 
     for (let i = 0; i < APIcall.length; i++) {
       let fullname = APICall[i]['firstName'] + " " + APICall[i]['lastName']
@@ -132,7 +96,7 @@ const MainPage: React.FC = () => {
     (document.getElementById("list") as HTMLDivElement).innerHTML = "";
 
     let result;
-    if (colleaguelist.length < 1) {
+    if (colleaguelist.length < 1 && input != "") {
       const label = React.createElement('label', { className: 'message' }, 'No match found.');
       result = React.createElement('div', {}, label);
     }
@@ -178,8 +142,16 @@ const MainPage: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='content'>
-          <h1>Welcome, {localStorage.getItem("first_name")}</h1>
-          <button onClick={refreshPage} className='btn'>Refresh Colleagues</button> <br />
+          {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
+          <input type="text" id="searchbox" className='searchbox' placeholder='&#xf002; Search Colleagues...' onChange={SearchColleagues} ref={searchInput}></input><br />
+          <div id="contentcontainer">
+            <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> <br />
+            <h5 className='titlefavorite'>Favorites</h5>
+              {/* favorite colleagues */}
+          </div>
+
+          {/* filter */}
+          {/* <button onClick={refreshPage} className='btn'>Refresh Colleagues</button> <br />
           <button className='btn filterbtn' id="filterbtn" onClick={ToggleFilters}>Show Filters</button> <br /> <br />
           <div className='filterdiv' id="filterdiv" hidden>
             <div className='searchdiv'>
@@ -191,9 +163,9 @@ const MainPage: React.FC = () => {
               </select>
               <button className='btn' onClick={refreshPage}>Reset All Filters</button>
             </div>
-          </div> <br />
-          <input type="text" id="searchbox" className='searchbox' placeholder='Search Colleagues...' onChange={SearchColleagues}></input> <br /> <br />
-          <div className='colleagues' id="list">
+          </div> <br /> */}
+
+          <div className='colleagues' id="list" hidden>
             {colleaguelist}
           </div>
         </div>

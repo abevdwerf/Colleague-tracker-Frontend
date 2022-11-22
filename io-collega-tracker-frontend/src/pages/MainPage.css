@@ -14,8 +14,8 @@ ion-content {
 } */
 
 .searchbox {
-    background: #F4F4F4;
-    border-radius: 10px;
+    background: #ffffff;
+    border-radius: 9px;
     border-color: #E5E5E5;
     border: none;
     text-align: left;
@@ -60,4 +60,22 @@ ion-content {
 
 .message {
     color: white;
+}
+
+#contentcontainer {
+    text-align: start;
+}
+
+#allcolleaguesbtn {
+    font-weight: bold;
+    box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.1);
+}
+
+.titlefavorite {
+    /* text-align: start; */
+    color: white;
+}
+
+.colleagues {
+    margin-top: 20px;
 }
