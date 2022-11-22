@@ -40,6 +40,7 @@ const GoogleLogin: React.FC = () => {
     const response = await GoogleAuth.signIn()
     let isLoggedIn = false
       console.log(response)
+      console.log(response.authentication.idToken)
       let config = {
         headers: {
           idToken: response.authentication.idToken,
