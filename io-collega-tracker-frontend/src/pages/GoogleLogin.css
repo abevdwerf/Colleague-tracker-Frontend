@@ -30,9 +30,6 @@ form {
     color: white;
 }
 
-.submit {
-    padding-top: 200px;
-}
 
 #signInDiv > div > div:first-child{
     display: none;
