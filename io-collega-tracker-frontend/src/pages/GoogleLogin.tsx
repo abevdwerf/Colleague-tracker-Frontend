@@ -76,6 +76,9 @@ const GoogleLogin: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='content'>
+          <img width="50%" height="50%" src="https://cdn.uc.assets.prezly.com/5d6dc65d-f349-4636-9b4b-cd08956d19ce/-/resize/992/-/format/png/" />
+          <br />
+          <br />
           <h1>Please log in with a valid Google account to continue.</h1> <br />
           <label className='label'>If you have never logged in before, you will be prompted to verify your role as an iO employee by entering your iO email address.</label>
           <br />

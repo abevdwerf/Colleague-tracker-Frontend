@@ -14,9 +14,9 @@
 }
 
 .mactitle {
-    color: white;
+    color: rgb(255, 255, 255);
     font-size: x-large;
-    font-family: 'TT Commons Pro';
+    font-weight: normal;
 }
 
 .addmacaddress {
@@ -31,9 +31,26 @@
 
 .addmactext {
     color: white;
+    font-weight: normal;
 }
 
 .del {
     background-color: rgb(255, 64, 64);
     color: white;
+}
+
+.closebtn {
+    color: white;
+    width: 80px;
+    height: 40px;
+    font-family: 'TT Commons Pro';
+    font-size: larger;
+    background-color: transparent;
+    border: none;
+    filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0));
+}
+
+.closediv {
+    margin-left: 10px;
+    margin-top: 10px;
 }
