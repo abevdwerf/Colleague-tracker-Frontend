@@ -1,0 +1,51 @@
+.maccard {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: white;
+    border-radius: 15px;
+    width: 300px;
+    padding: 10px;
+    font-family: 'TT Commons Pro';
+    text-align: left;
+    filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.47))
+}
+
+.devicename {
+    font-size: large;
+    display: inline;
+}
+
+.addresstext {
+    color: rgb(127, 127, 127);
+    display: inline;
+}
+
+.viewbtn {
+    display: inline;
+    background-color: transparent;
+    border: none;
+    font-size: xx-large;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.column {
+    float: left;
+}
+
+.columnleft {
+    width: 90%;
+}
+
+.columnright {
+    width: 10%;
+}
+
+.link {
+    text-decoration: none;
+    color: black;
+}

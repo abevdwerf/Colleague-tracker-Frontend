@@ -15,50 +15,66 @@ const MailConfirm: React.FC = () => {
   }
 
   function submitEmail() {
-
-
-    let config = {
-      headers: {
-        idToken: localStorage.getItem("token"),
-        "Content-Type": "text/plain"
+    const checkbox = document.getElementById("myCheckbox");
+    const textbox = document.getElementById("emailInput");
+    if ((checkbox as HTMLInputElement)?.checked && (textbox as HTMLInputElement)?.value != "") {
+      let config = {
+        headers: {
+          idToken: localStorage.getItem("token"),
+          "Content-Type": "text/plain"
+        }
       }
+      let mail = (document.getElementById("emailInput") as HTMLInputElement).value;
+      localStorage.setItem("mail", mail)
+      present({
+        message: 'Sending Email...'
+      })
+      axios.post(process.env.REACT_APP_ROOT_API + `/email/verify`, mail, config)
+        .then(res => {
+          console.log(res)
+          if (res.data.statusCode === 200) {
+            dismiss();
+            redirectToVerifyWait()
+          } else if (res.data.statusCode === 400) {
+            dismiss();
+            presentAlert({
+              header: 'Mail Verification',
+              message: 'Your account has already been verified!',
+              buttons: ['Continue to App'],
+            })
+          }
+
+          else if (res.data.statusCode === 401) {
+            dismiss();
+            presentAlert({
+              header: 'Mail Verification',
+              message: 'This email is already in use, please use a different email',
+              buttons: ['OK'],
+            })
+          }
+          dismiss();
+        })
+        .catch(err => {
+          dismiss();
+          console.log(err)
+        })
     }
-    let mail = (document.getElementById("emailInput") as HTMLInputElement).value;
-    localStorage.setItem("mail", mail)
-    present({
-      message: 'Sending Email...'
-    })
-    axios.post(process.env.REACT_APP_ROOT_API + `/email/verify`, mail, config)
-      .then(res => {
-        console.log(res)
-        if (res.data.statusCode === 200) {
-          dismiss();
-          redirectToVerifyWait()
-        } else if (res.data.statusCode === 400) {
-          dismiss();
-          presentAlert({
-            header: 'Mail Verification',
-            message: 'Your account has already been verified!',
-            buttons: ['Continue to App'],
-          })
-        }
-
-        else if (res.data.statusCode === 401) {
-          dismiss();
-          presentAlert({
-            header: 'Mail Verification',
-            message: 'This email is already in use, please use a different email',
-            buttons: ['OK'],
-          })
-        }
-        dismiss();
-      })
-      .catch(err => {
-        dismiss();
-        console.log(err)
-      })
-
   }
+
+  function SetButton() {
+    const checkbox = document.getElementById("myCheckbox");
+    const button = document.getElementById("submit");
+
+    if ((checkbox as HTMLInputElement)?.checked) {
+      button?.classList.remove("btn-disabled");
+      button?.classList.add("btn");
+    }
+    else {
+      button?.classList.add("btn-disabled");
+      button?.classList.remove("btn");
+    }
+  }
+
 
   return (
     <IonPage>
@@ -67,14 +83,13 @@ const MailConfirm: React.FC = () => {
           <i className="fa-solid fa-envelope fa-3x"></i>
           <h1>Enter your iO mail address:</h1>
           <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' /> <br /><br /><br />
-
           <label className='checkcontainer'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
-            <input type="checkbox" />
+            <input type="checkbox" id="myCheckbox" onChange={SetButton}/>
             <span className="checkmark"></span>
           </label> <br /><br /><br />
           <div className='submit'>
             <label className="label">Verify your email address to prove that you are an iO employee.</label> <br />
-            <button onClick={submitEmail} className='btn'>Submit</button>
+            <button onClick={submitEmail} className='btn-disabled' id="submit">Submit</button>
           </div>
         </div>
       </IonContent>
