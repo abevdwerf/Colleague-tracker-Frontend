@@ -15,7 +15,7 @@ const EditMac: React.FC = () => {
                     <label className='addmactext'>Address: </label> <br />
                     <input type="text" className="textbox" placeholder='e.g: 00:1B:44:11:3A:B7' />
                 </div> <br />
-                <button className='btn'>Save Changes</button> <br />
+                <button className='btn savebtn'>Save Changes</button> <br />
                 <button className='del btn'>Delete MAC-Address</button>
             </IonContent>
             <div className='closediv'>

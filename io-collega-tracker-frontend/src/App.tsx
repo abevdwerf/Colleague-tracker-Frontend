@@ -10,7 +10,7 @@ import {
   setupIonicReact
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import { ellipse, square, medkit, triangle, location, planet, settings, home, person } from 'ionicons/icons';
+import { settings, person, search } from 'ionicons/icons';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
@@ -88,8 +88,8 @@ const App: React.FC = () => (
         </IonRouterOutlet>
         <IonTabBar slot="bottom" id="tab-bar">
           <IonTabButton tab="tab1" href="/mainpage">
-            <IonIcon icon={home} />
-            <IonLabel>Home</IonLabel>
+            <IonIcon icon={search} />
+            <IonLabel>Search</IonLabel>
           </IonTabButton>
           <IonTabButton tab="tab2" href="/profile">
             <IonIcon icon={person} />

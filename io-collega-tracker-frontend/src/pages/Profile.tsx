@@ -133,7 +133,6 @@ const LocationSetting: React.FC = () => {
 
     axios.post(process.env.REACT_APP_ROOT_API + `/status/set`, null, config)
       .then(res => {
-        console.log(res);
         GetStatus();
       })
       .catch(err => {

@@ -112,7 +112,6 @@ const GoogleLogin: React.FC = () => {
                   <text id='GoogleText'>Login With Google</text>
               </button>
             </div>
-            <input type="text" value="" id="myInput"></input>
         </div>
       </IonContent>
     </IonPage>

@@ -66,7 +66,6 @@ const MainPage: React.FC = () => {
 
   function SearchColleagues() {
     var input = (document.getElementById('searchbox') as HTMLInputElement).value.toLowerCase();
-    console.log(input);
     var APICall = Users;
     var names: Array<string> = [];
 
