@@ -1,0 +1,76 @@
+{
+  "project_info": {
+    "project_number": "438901753170",
+    "project_id": "io-colleague-tracker",
+    "storage_bucket": "io-colleague-tracker.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438901753170:android:4e471698a6728e0792268b",
+        "android_client_info": {
+          "package_name": "io.ionic.colleaguetracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438901753170-frdk080i3cs6v6nj75llqsf9qqm0u7us.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "io.ionic.colleaguetracker",
+            "certificate_hash": "047b517602d4d4a6eec9b5716025e6391ecad0c6"
+          }
+        },
+        {
+          "client_id": "438901753170-4s3sdluu5ib01dovth3sva1572ecpvkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDksCJexNEoKrEkReQZ4gmpEJHKZtbuSVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438901753170-4s3sdluu5ib01dovth3sva1572ecpvkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:438901753170:android:1610d47fa8520e0a92268b",
+        "android_client_info": {
+          "package_name": "io.ionic.starter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "438901753170-4s3sdluu5ib01dovth3sva1572ecpvkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDksCJexNEoKrEkReQZ4gmpEJHKZtbuSVg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "438901753170-4s3sdluu5ib01dovth3sva1572ecpvkr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

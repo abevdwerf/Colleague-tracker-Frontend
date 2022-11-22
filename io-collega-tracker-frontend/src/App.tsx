@@ -87,7 +87,7 @@ const App: React.FC = () => (
           </Route>
         </IonRouterOutlet>
         <IonTabBar slot="bottom" id="tab-bar">
-        <IonTabButton tab="tab1" href="/mainpage">
+          <IonTabButton tab="tab1" href="/mainpage">
             <IonIcon icon={home} />
             <IonLabel>Home</IonLabel>
           </IonTabButton>
