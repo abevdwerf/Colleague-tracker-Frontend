@@ -1,133 +1,126 @@
 .btn {
-    background: white;
-    min-width: 150px;
-    min-height: 40px;
-    border: none;
-    font-family: 'TT Commons Pro';
-    color: black;
-    margin-top: 25px;
-    border-radius: 3px;
+  background: white;
+  min-width: 150px;
+  min-height: 40px;
+  border: none;
+  font-family: 'TT Commons Pro';
+  color: black;
+  margin-top: 25px;
+  border-radius: 3px;
 }
 
 .btn-disabled {
-    background: rgb(212, 212, 212);
-    min-width: 150px;
-    min-height: 40px;
-    border: none;
-    font-family: 'TT Commons Pro';
-    color: black;
-    margin-top: 25px;
-    border-radius: 3px;
+  background: rgb(212, 212, 212);
+  min-width: 150px;
+  min-height: 40px;
+  border: none;
+  font-family: 'TT Commons Pro';
+  color: black;
+  margin-top: 25px;
+  border-radius: 3px;
 }
 
-i{
-    color: white;
+i {
+  color: white;
 }
 
 .textbox {
-    margin-top: 20px;
-    background: #F4F4F4;
-    border-radius: 3px;
-    border-color: #E5E5E5;
-    border: none;
-    text-align: center;
-    min-width: 200px;
-    min-height: 40px;
-    font-family: 'TT Commons Pro';
-    color: black
+  margin-top: 20px;
+  background: #F4F4F4;
+  border-radius: 3px;
+  border-color: #E5E5E5;
+  border: none;
+  text-align: center;
+  min-width: 200px;
+  min-height: 40px;
+  font-family: 'TT Commons Pro';
+  color: black
 }
 
 .label {
-    font-family: 'TT Commons Pro';
-    color: white;
+  font-family: 'TT Commons Pro';
+  color: white;
 }
 
 h1 {
-    font-family: 'TT Commons Pro';
-    color: white;
+  font-family: 'TT Commons Pro';
+  color: white;
 }
 
-ion-content {
-    text-align: center;
-    position: absolute;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-}
 
 .form {
-    padding: 50px;
+  padding: 50px;
 }
 
 .terms {
-    color: white;
+  color: white;
 }
 
 .submit {
-    padding-top: 100px;
+  padding-top: 25px;
 }
 
 /* Customize the label (the container) */
 .checkcontainer {
-    display: block;
-    position: relative;
-    padding-left: 10px;
-    margin-bottom: 12px;
-    font-family: 'TT Commons Pro';
-    color: white;
-  }
-  
-  /* Hide the browser's default checkbox */
-  .checkcontainer input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-  }
-  
-  /* Create a custom checkbox */
-  .checkmark {
-    margin-top: 3px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 15px;
-    width: 15px;
-    background-color: white;
-  }
-  
-  /* On mouse-over, add a grey background color */
-  .checkcontainer:hover input ~ .checkmark {
-    background-color: white;
-  }
-  
-  /* When the checkbox is checked, add a blue background */
-  .checkcontainer input:checked ~ .checkmark {
-    background-color: #2196F3;
-  }
-  
-  /* Create the checkmark/indicator (hidden when not checked) */
-  .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-  }
-  
-  /* Show the checkmark when checked */
-  .checkcontainer input:checked ~ .checkmark:after {
-    display: block;
-  }
-  
-  /* Style the checkmark/indicator */
-  .checkcontainer .checkmark:after {
-    margin-top: 2px;
-    margin-left: 5px;
-    width: 2px;
-    height: 7px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
+  display: block;
+  position: relative;
+  padding-left: 10px;
+  margin-bottom: 12px;
+  font-family: 'TT Commons Pro';
+  color: white;
+}
+
+/* Hide the browser's default checkbox */
+.checkcontainer input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* Create a custom checkbox */
+.checkmark {
+  margin-top: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 15px;
+  width: 15px;
+  background-color: white;
+}
+
+/* On mouse-over, add a grey background color */
+.checkcontainer:hover input~.checkmark {
+  background-color: white;
+}
+
+/* When the checkbox is checked, add a blue background */
+.checkcontainer input:checked~.checkmark {
+  background-color: #2196F3;
+}
+
+/* Create the checkmark/indicator (hidden when not checked) */
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkmark when checked */
+.checkcontainer input:checked~.checkmark:after {
+  display: block;
+}
+
+/* Style the checkmark/indicator */
+.checkcontainer .checkmark:after {
+  margin-top: 2px;
+  margin-left: 5px;
+  width: 2px;
+  height: 7px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
