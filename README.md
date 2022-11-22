@@ -1,4 +1,9 @@
 # Change Log
+## v21 - 22/11/2022
+De vorige release had een paar grote problemen waar we pas later achter kwamen waardoor deze niet functioneel was, dit is nu allemaal opgelost.
+
+Een ding wat wel perongeluk er nog in zit is dat je tijdens opstarten meerdere popups krijgt, deze gebruiken wij om tokens op te halen voor het versturen van push notifications maar heeft verder dus geen functie
+
 
 ## v20 - 22/11/2022
 Deze release is wat kleiner dan normaal, dit komt omdat we vooral in de backend bezig zijn geweest en met dingen die niet direct impact hebben op de app.
