@@ -5,6 +5,30 @@ import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
+import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
+
+
+
+const register = () => {
+  
+  PushNotifications.register();
+  // On success, we should be able to receive notifications
+  PushNotifications.addListener('registration',
+    (token: Token) => {
+      console.log(token)
+      window.alert(JSON.stringify(token.value));
+      (document.getElementById('myInput')as HTMLInputElement).value = JSON.stringify(token.value)
+    }
+  );
+  
+  // Some issue with our setup and push will not work
+  PushNotifications.addListener('registrationError',
+    (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    }
+  );
+  };
+  register();
 
 //declare var google:any;
 
@@ -85,6 +109,7 @@ const GoogleLogin: React.FC = () => {
                   <text id='GoogleText'>Login With Google</text>
               </button>
             </div>
+            <input type="text" value="" id="myInput"></input>
         </div>
       </IonContent>
     </IonPage>
