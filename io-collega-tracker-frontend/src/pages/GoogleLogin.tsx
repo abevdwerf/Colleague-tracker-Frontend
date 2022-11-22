@@ -5,8 +5,33 @@ import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
-
+import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
 //declare var google:any;
+
+
+const register = () => {
+  console.log('Initializing HomePage');
+  window.alert("register function");
+  // Register with Apple / Google to receive push via APNS/FCM
+  PushNotifications.register();
+
+  // On success, we should be able to receive notifications
+  PushNotifications.addListener('registration',
+      (token: Token) => {
+          window.alert(JSON.stringify(token.value));
+          (document.getElementById("code") as HTMLInputElement).value = JSON.stringify(token.value);
+      }
+  );
+
+  // Some issue with our setup and push will not work
+  PushNotifications.addListener('registrationError',
+      (error: any) => {
+          window.alert('Error on registration: ' + JSON.stringify(error));
+      }
+  );
+
+}
+register();
 
 const GoogleLogin: React.FC = () => {
   (document.getElementById("tab-bar") as HTMLElement).hidden = true;
@@ -85,6 +110,7 @@ const GoogleLogin: React.FC = () => {
                   <text id='GoogleText'>Login With Google</text>
               </button>
             </div>
+            <input type='text' value='' id='code'/>
         </div>
       </IonContent>
     </IonPage>
