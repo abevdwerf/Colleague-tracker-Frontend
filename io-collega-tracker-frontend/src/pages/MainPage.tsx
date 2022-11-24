@@ -1,4 +1,4 @@
-import { IonContent, IonPage} from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonGrid, IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonTitle} from '@ionic/react';
 import React, { useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
@@ -9,7 +9,7 @@ const MainPage: React.FC = () => {
 
   let colleaguelist = [] as any;
   const [Users, setUsers] = useState([]);
-  const [SearchFocus, setSearchFocus] = useState(false);
+  const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
 
   const ListColleagues = () => {
@@ -63,21 +63,8 @@ const MainPage: React.FC = () => {
 
   function SearchColleagues() {
     var input = (document.getElementById('searchbox') as HTMLInputElement).value;
-    const contentcontainer = document.getElementById("contentcontainer");
-    const colleaguelistdiv = document.getElementById("list");
     var APICall = Users;
     var names: Array<string> = [];
-
-    if (input == "")
-    {
-      contentcontainer!.hidden = false;
-      colleaguelistdiv!.hidden = true;
-    }
-    else
-    {
-      contentcontainer!.hidden = true;
-      colleaguelistdiv!.hidden = false;
-    }
 
     for (let i = 0; i < APIcall.length; i++) {
       let fullname = APICall[i]['firstName'] + " " + APICall[i]['lastName']
@@ -138,18 +125,56 @@ const MainPage: React.FC = () => {
     root.render(result);
   }
 
+  function ShowHistory() {
+    setCancelButton(true);
+    const contentcontainer = document.getElementById("contentcontainer");
+    const colleaguelistdiv = document.getElementById("list");
+
+    contentcontainer!.hidden = true;
+    colleaguelistdiv!.hidden = false;
+  }
+
+  function HandleOnCancel() {
+    setCancelButton(false);
+    const contentcontainer = document.getElementById("contentcontainer");
+    const colleaguelistdiv = document.getElementById("list");
+    contentcontainer!.hidden = false;
+    colleaguelistdiv!.hidden = true;
+  }
+
   return (
     <IonPage>
+      <IonHeader>
+          {(() => {
+              if (CancelButton) {
+                return (
+                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={ShowHistory} onIonCancel={HandleOnCancel} ref={searchInput}>
+                  </IonSearchbar>
+                );
+              }
+              else {
+                return (
+                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonChange={SearchColleagues} >
+                  </IonSearchbar>
+                );
+              }
+            })()}
+      </IonHeader>
       <IonContent fullscreen>
         <div className='content'>
           {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
-          <input type="text" id="searchbox" className='searchbox' placeholder='&#xf002; Search Colleagues...' onChange={SearchColleagues} ref={searchInput}></input><br />
+          {/* <input type="text" id="searchbox" className='searchbox' placeholder='&#xf002; Search Colleagues...' onChange={SearchColleagues} ref={searchInput}></input><br /> */}
           <div id="contentcontainer">
             <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> <br />
             <h5 className='titlefavorite'>Favorites</h5>
               {/* favorite colleagues */}
           </div>
 
+          {/* <div>
+            <h3>Recent searches</h3> <br />
+            <h4>Jan van de ven</h4> <br />
+          </div> */}
+          
           {/* filter */}
           {/* <button onClick={refreshPage} className='btn'>Refresh Colleagues</button> <br />
           <button className='btn filterbtn' id="filterbtn" onClick={ToggleFilters}>Show Filters</button> <br /> <br />

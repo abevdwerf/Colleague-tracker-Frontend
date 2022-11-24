@@ -15,9 +15,11 @@ const LocationSetting: React.FC = () => {
     {
       SetYesButtonActive();
     }
+    else if (Status == "unkown") {
+      
+    }
     else{
       SetNoButtonActive();
-      console.log("hoi");
     }
   }, [Status]);
 
