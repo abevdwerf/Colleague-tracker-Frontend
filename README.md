@@ -1,4 +1,23 @@
 # Change Log
+## v21 - 22/11/2022
+De vorige release had een paar grote problemen waar we pas later achter kwamen waardoor deze niet functioneel was, dit is nu allemaal opgelost.
+
+Een ding wat wel perongeluk er nog in zit is dat je tijdens opstarten meerdere popups krijgt, deze gebruiken wij om tokens op te halen voor het versturen van push notifications maar heeft verder dus geen functie
+
+
+## v20 - 22/11/2022
+Deze release is wat kleiner dan normaal, dit komt omdat we vooral in de backend bezig zijn geweest en met dingen die niet direct impact hebben op de app.
+
+Je kan nu een tijd aangeven op je profielpagina om aan te geven voor hoelang de status geld, deze heeft verder nog geen functie en is puur UI.
+
+De locatie knoppen zijn duidelijker gemaakt, we horen graag of het nu duidelijk genoeg is.
+
+Mac-Address pagina afgemaakt, deze heeft echter ook nog geen functie en is puur UI
+
+De zoekfunctie is niet meer hoofdlettergevoelig
+
+Een paar andere styling aanpassingen op andere pagina's
+
 ## v19 - 15/11/2022
 In deze versie hebben we een zoek & filter functie gemaakt, de gebruiker kan op voor en achternaam zoeken van een andere gebruiker. Dit is nog niet de uiteindelijke versie van de UI. Ook zijn de enige filters op dit moment thuis en op kantoor, we zouden graag van jullie willen horen waar jullie graag meer op willen kunnen filteren.
 

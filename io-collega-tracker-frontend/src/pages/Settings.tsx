@@ -9,13 +9,11 @@ const Settings: React.FC = () => {
     return (
         <IonPage>
             <IonContent fullscreen >
-                <div className='content'>
                     <h1>Settings</h1> <br />
                     <button className='settingsbtn'>Profile</button> <br />
                     <button className='settingsbtn'>Nofitications</button> <br />
                     <Link to="/macpage"><button className='settingsbtn'>MAC-Addresses</button></Link> <br />
                     <button className='settingsbtn'>Terms & Conditions</button> <br />               
-                </div>
             </IonContent>
         </IonPage>
     );
