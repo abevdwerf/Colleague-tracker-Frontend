@@ -6,6 +6,42 @@ import ExploreContainer from '../components/ExploreContainer';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
 import { location } from 'ionicons/icons';
+import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
+
+
+
+const register = () => {
+  PushNotifications.register();
+  // On success, we should be able to receive notifications
+  PushNotifications.addListener('registration',
+    (token: Token) => {
+      console.log(JSON.stringify(token.value))
+
+      let config = {
+        headers: {
+          idToken: localStorage.getItem("token"),
+          "Content-Type": "text/plain"
+        },
+        params: {
+          fcmToken: JSON.stringify(token.value)
+        }
+      }
+
+      axios.post(process.env.REACT_APP_ROOT_API + `/notification/fcm/set`, null, config)
+        .then(res => {
+          console.log(res)
+      });
+    }
+  );
+  
+  // Some issue with our setup and push will not work
+  PushNotifications.addListener('registrationError',
+    (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    }
+  );
+  };
+  register();
 
 const MainPage: React.FC = () => {
 
@@ -41,7 +77,7 @@ const MainPage: React.FC = () => {
   let APIcall = ListColleagues();
   for (let i = 0; i < APIcall.length; i++) {
     //   colleaguelist.push(<ColleagueCard name={APIcall[i].firstName} location={APIcall[i].status} status={"Test"} />);
-    colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
+    colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} id={Users[i]['id']} key={i} />);
     colleaguelist.push(<br key={i + "br"} />);
   }
   //ListFavoriteColleagues()
@@ -79,7 +115,7 @@ const MainPage: React.FC = () => {
 
     for (let i = 0; i < APICall.length; i++) {
       if (filtered.includes((APICall[i]['firstName'] + " " + APICall[i]['lastName']).toLowerCase())) {
-        colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
+        colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} id={Users[i]['id']} key={i} />);
         colleaguelist.push(<br key={i + "br"} />);
       }
     }
@@ -107,7 +143,7 @@ const MainPage: React.FC = () => {
 
     for (let i = 0; i < Users.length; i++) {
       if (Users[i]['status'] == option) {
-        colleaguelist.push(<ColleagueCard first_name={Users[i]['firstName']} last_name={Users[i]['lastName']} location={Users[i]['status']} key={i} />);
+        colleaguelist.push(<ColleagueCard first_name={Users[i]['firstName']} last_name={Users[i]['lastName']} location={Users[i]['status']} id={Users[i]['id']} key={i} />);
         colleaguelist.push(<br key={i + "br"} />);
       }
     }
