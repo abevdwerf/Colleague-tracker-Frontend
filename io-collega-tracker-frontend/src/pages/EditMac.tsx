@@ -60,11 +60,21 @@ const EditMac: React.FC = () => {
             })
             .catch(err => {
                 console.log(err);
+                if (err.response.data.message.includes("already present")) {
+                    DisplayError();
+                }
             })
     }
 
     async function DisplayError() {
-        window.alert("test");
+        const alert = document.createElement('ion-alert');
+        alert.header = 'Error';
+        alert.subHeader = 'Could not add MAC-Address';
+        alert.message = 'This MAC-Address has already been added by someone else.';
+        alert.buttons = ['OK'];
+
+        document.body.appendChild(alert);
+        await alert.present();
     }
 
     function Delete() {
