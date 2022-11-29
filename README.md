@@ -1,4 +1,15 @@
 # Change Log
+
+## V22 - 29/11/2022
+Deze release bevat de volgende aanpassingen:
+
+-Push Notifications bij onbekende status om half 10 's ochtends en als iemand je nodig heeft
+-MAC-Adressen toevoegen, aanpassen en verwijderen
+-Tijden voor status instellen op profiel pagina
+
+Bekende Bugs:
+-Push Notifications werken alleen wanneer de app gesloten of op de achtergrond is, niet wanneer deze open staat
+-De tijden instellen werkt alleen voor 9 uur 's ochtends en na 5 uur 's middags. Dit komt omdat dit de standaard waarden zijn, en als de huidige tijd buiten deze tijden vallen worden ze als ongeldig gezien door de backend. Deze standaard tijden springen nu namelijk nog terug na het aanpassen.
 ## v21 - 22/11/2022
 De vorige release had een paar grote problemen waar we pas later achter kwamen waardoor deze niet functioneel was, dit is nu allemaal opgelost.
 
