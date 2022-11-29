@@ -16,7 +16,6 @@ const MacPage: React.FC = () => {
                 idToken: localStorage.getItem("token"),
             }
         }
-
         useEffect(() => {
             axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
                 .then(res => {
@@ -40,7 +39,7 @@ const MacPage: React.FC = () => {
 
     //let APIcall = ListAddresses();
     for (let i = 0; i < Addresses.length; i++) {
-        addresslist.push(<MacCard name="*device*" address={Addresses[i]["addressValue"]} key={i} index={i.toString()} />);
+        addresslist.push(<MacCard name="*device*" address={Addresses[i]["addressValue"]} key={i} index={Addresses[i]["id"]} />);
         addresslist.push(<br key={i + "br"} />);
     }
 

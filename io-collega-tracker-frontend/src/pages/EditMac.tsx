@@ -10,7 +10,6 @@ function goback() {
 const EditMac: React.FC = () => {
 
     let id: number;
-    let oldaddress: string;
 
     const GetAddress = () => {
 
@@ -22,13 +21,14 @@ const EditMac: React.FC = () => {
         axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
             .then(res => {
                 if (res.status === 200) {
+                    console.log(localStorage.getItem("addressid"))
                     for (let i = 0; i < res.data.length; i++)
                     {
-                        if (i.toString() === localStorage.getItem("addressid"))
+                        console.log(res.data[i]["id"])
+                        if (res.data[i]["id"] == localStorage.getItem("addressid"))
                         {
-                            id = i;
+                            id = res.data[i]["id"];
                             (document.getElementById("addressinp") as HTMLInputElement).value = res.data[i]["addressValue"];
-                            oldaddress = res.data[i]["addressValue"]
                         }
                     }
                 }
@@ -47,7 +47,7 @@ const EditMac: React.FC = () => {
             },
             params: {
                 newMACAddress: (document.getElementById("addressinp") as HTMLInputElement).value,
-                oldMACAddress: oldaddress
+                oldMACAddressID: id
             }
         }
 
@@ -55,14 +55,11 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
-                    window.location.href = "/macpage"
+                    console.log(res);
                 }
             })
             .catch(err => {
-                console.log(err.response.data.message);
-                if (err.response.data.message.includes("already present")) {
-                    DisplayError();
-                }
+                console.log(err);
             })
     }
 
@@ -84,7 +81,7 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
-                    window.location.href = "/macpage"
+                    console.log(res);
                 }
             })
             .catch(err => {

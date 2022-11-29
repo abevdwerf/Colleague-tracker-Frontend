@@ -2,7 +2,7 @@ import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
   appId: 'io.ionic.colleaguetracker',
-  appName: 'IO Collega Tracker Frontend',
+  appName: 'iO Colleague Tracker',
   webDir: 'build',
   bundledWebRuntime: false,
   plugins: {
