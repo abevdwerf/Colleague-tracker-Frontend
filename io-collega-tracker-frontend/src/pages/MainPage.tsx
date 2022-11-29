@@ -6,6 +6,37 @@ import ExploreContainer from '../components/ExploreContainer';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
 import { location } from 'ionicons/icons';
+import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
+
+let config = {
+  headers: {
+    idToken: localStorage.getItem("token"),
+    "Content-Type": "text/plain"
+  }
+}
+
+const register = () => {
+  PushNotifications.register();
+  // On success, we should be able to receive notifications
+  PushNotifications.addListener('registration',
+    (token: Token) => {
+      console.log(JSON.stringify(token.value))
+      token.value.toString()
+          axios.post(process.env.REACT_APP_ROOT_API + `/notification/fcm/set`, {idToken: JSON.stringify(token.value)}, config)
+        .then(res => {
+          console.log(res)
+      });
+    }
+  );
+  
+  // Some issue with our setup and push will not work
+  PushNotifications.addListener('registrationError',
+    (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    }
+  );
+  };
+  register();
 
 const MainPage: React.FC = () => {
 
