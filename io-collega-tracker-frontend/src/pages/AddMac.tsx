@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from '@ionic/react';
+import { IonContent, IonPage, IonAlert } from '@ionic/react';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -14,22 +14,38 @@ const AddMac: React.FC = () => {
     const AddAddress = () => {
 
         let address = (document.getElementById("addressinp") as HTMLInputElement).value
+        console.log(address);
         let config = {
             headers: {
                 idToken: localStorage.getItem("token")
+            },
+            params: {
+                macAddress: address
             }
         }
-
-        axios.post(process.env.REACT_APP_ROOT_API + `/add-mac-address`, {macAddress: address},  config)
+        axios.post(process.env.REACT_APP_ROOT_API + `/add-mac-address`, null, config)
             .then(res => {
                 if (res.status === 200) {
-                    setAddresses(res.data);
+                    window.location.href = "/macpage";
                 }
             })
             .catch(err => {
-                console.log(err)
+                console.log(err);
+                if (err.response.data.message.includes("already present")) {
+                    DisplayError();
+                }
             })
+    }
 
+    async function DisplayError() {
+        const alert = document.createElement('ion-alert');
+        alert.header = 'Error';
+        alert.subHeader = 'Could not add MAC-Address';
+        alert.message = 'This MAC-Address has already been added by someone else.';
+        alert.buttons = ['OK'];
+
+        document.body.appendChild(alert);
+        await alert.present();
     }
 
     return (

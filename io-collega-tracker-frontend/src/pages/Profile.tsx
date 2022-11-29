@@ -6,54 +6,41 @@ import "./Profile.css"
 const LocationSetting: React.FC = () => {
 
   const [Status, SetStatus] = useState("unkown");
-
-  const [StartTime, SetStartTime] = useState(
-    useEffect(() => {
-
-      if (StartTime !== undefined) {
-        document.getElementById("endtime")?.setAttribute('min', StartTime);
-      }
-      if (StartTime !== undefined && EndTime !== undefined) {
-        CheckTimes();
-      }
-    })
-  );
-
-  const [EndTime, SetEndTime] = useState(
-    useEffect(() => {
-
-      if (EndTime !== undefined) {
-        document.getElementById("starttime")?.setAttribute('max', EndTime);
-      }
-      if (StartTime !== undefined && EndTime !== undefined) {
-        CheckTimes();
-      }
-    })
-  );
-
   useEffect(() => {
     GetStatus();
 
     if (Status == "Office") {
       SetYesButtonActive();
     }
-    else {
+    else if (Status == "Home") {
       SetNoButtonActive();
+    }
+    else {
+      SetNeitherButtonActive();
     }
   }, [Status]);
 
-  function CheckTimes() {
-    var start = Date.parse(StartTime as unknown as string);
-    var end = Date.parse(EndTime as unknown as string);
-    if (end < start) {
+  var StartTime: string = new Date().toISOString().split('T')[0] + "T05:00:00+01:00";
+  var EndTime: string = new Date().toISOString().split('T')[0] + "T06:00:00+01:00";
+
+  function SetStartTime(value: any) {
+    StartTime = value as string;
+    document.getElementById("endtime")?.setAttribute("min", value);
+    if (Date.parse(EndTime) < Date.parse(StartTime)) {
       (document.getElementById("badtime") as HTMLLabelElement).hidden = false;
-      // (document.getElementById("tab-bar") as HTMLElement).hidden = true;
     }
-    else {
-      (document.getElementById("badtime") as HTMLLabelElement).hidden = true;
-      // (document.getElementById("tab-bar") as HTMLElement).hidden = false;
-      //Do DB Stuff
+
+    //axios.post
+  }
+
+  function SetEndTime(value: any) {
+    EndTime = value as string;
+    document.getElementById("starttime")?.setAttribute("max", value);
+    if (Date.parse(EndTime) < Date.parse(StartTime)) {
+      (document.getElementById("badtime") as HTMLLabelElement).hidden = false;
     }
+
+    //axios.post
   }
 
   async function GetStatus() {
@@ -140,6 +127,17 @@ const LocationSetting: React.FC = () => {
       })
   }
 
+  function SetNeitherButtonActive() {
+    let yesbtn = document.getElementById('yesbtn');
+    let nobtn = document.getElementById('nobtn');
+
+    yesbtn?.classList.remove("togglebtn-active");
+    nobtn?.classList.remove("togglebtn-active");
+
+    yesbtn?.removeAttribute("disabled");
+    nobtn?.removeAttribute("disabled");
+  }
+
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -168,25 +166,30 @@ const LocationSetting: React.FC = () => {
           <h5>Where are you today?</h5>
           <button id="yesbtn" className='togglebtn' onClick={SetYes}>Office</button>
           <button id="nobtn" className='togglebtn' onClick={SetNo}>Home</button> <br /> <br />
-          <div className='row'>
-            <div className='timecolumnleft'>
-              <label>Start:</label>
-              <IonDatetimeButton datetime="starttime" />
+          {Status !== "Unknown" &&
+            <div>
+              <label>How long will you be working today?</label> <br /> <br />
+              <div className='row'>
+                <div className='timecolumnleft'>
+                  <label>Start:</label>
+                  <IonDatetimeButton datetime="starttime" />
 
-              <IonPopover keepContentsMounted={true} className="test3">
-                <IonDatetime id="starttime" presentation="time" locale="nl-NL" onIonChange={(e: any) => SetStartTime(e.target.value)}></IonDatetime>
-              </IonPopover>
-            </div>
-            <div className='timecolumnright'>
-              <label>End:</label>
-              <IonDatetimeButton datetime="endtime" />
+                  <IonPopover keepContentsMounted={true} className="test3">
+                    <IonDatetime id="starttime" presentation="time" locale="nl-NL" onIonChange={(e: any) => SetStartTime(e.target.value)} value={StartTime}></IonDatetime>
+                  </IonPopover>
+                </div>
+                <div className='timecolumnright'>
+                  <label>End:</label>
+                  <IonDatetimeButton datetime="endtime" />
 
-              <IonPopover keepContentsMounted={true} className="test3">
-                <IonDatetime id="endtime" presentation="time" locale="nl-NL" onIonChange={(e: any) => SetEndTime(e.target.value)}></IonDatetime>
-              </IonPopover>
+                  <IonPopover keepContentsMounted={true} className="test3">
+                    <IonDatetime id="endtime" presentation="time" locale="nl-NL" onIonChange={(e: any) => SetEndTime(e.target.value)} value={EndTime}></IonDatetime>
+                  </IonPopover>
+                </div>
+              </div>
+              <label hidden id="badtime" className='errormessage'> <br />End time cannot be lower than start time!</label>
             </div>
-          </div>
-          <label hidden id="badtime" className='errormessage'> <br />End time cannot be lower than start time!</label>
+          }
         </div>
       </IonContent>
     </IonPage >

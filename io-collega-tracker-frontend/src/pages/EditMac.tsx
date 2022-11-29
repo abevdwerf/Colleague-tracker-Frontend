@@ -1,10 +1,97 @@
 import { IonContent, IonPage } from '@ionic/react';
+import axios from 'axios';
+import { useEffect } from 'react';
 
 function goback() {
+    localStorage.removeItem("addressid");
     window.location.href = "/macpage"
 }
 
 const EditMac: React.FC = () => {
+
+    let id: number;
+    let oldaddress: string;
+
+    const GetAddress = () => {
+
+        let config = {
+            headers: {
+                idToken: localStorage.getItem("token"),
+            }
+        }
+        axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
+            .then(res => {
+                if (res.status === 200) {
+                    for (let i = 0; i < res.data.length; i++)
+                    {
+                        if (i.toString() === localStorage.getItem("addressid"))
+                        {
+                            id = i;
+                            (document.getElementById("addressinp") as HTMLInputElement).value = res.data[i]["addressValue"];
+                            oldaddress = res.data[i]["addressValue"]
+                        }
+                    }
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    GetAddress();
+
+    function Save() {
+        let config = {
+            headers: {
+                idToken: localStorage.getItem("token"),
+            },
+            params: {
+                newMACAddress: (document.getElementById("addressinp") as HTMLInputElement).value,
+                oldMACAddress: oldaddress
+            }
+        }
+
+        axios.put(process.env.REACT_APP_ROOT_API + `/change-mac-address`, null, config)
+            .then(res => {
+                if (res.status === 200) {
+                    localStorage.removeItem("addressid");
+                    window.location.href = "/macpage"
+                }
+            })
+            .catch(err => {
+                console.log(err.response.data.message);
+                if (err.response.data.message.includes("already present")) {
+                    DisplayError();
+                }
+            })
+    }
+
+    async function DisplayError() {
+        window.alert("test");
+    }
+
+    function Delete() {
+        let config = {
+            headers: {
+                idToken: localStorage.getItem("token"),
+            },
+            params: {
+                macAddressID: id
+            }
+        }
+
+        axios.delete(process.env.REACT_APP_ROOT_API + `/delete-mac-address`, config)
+            .then(res => {
+                if (res.status === 200) {
+                    localStorage.removeItem("addressid");
+                    window.location.href = "/macpage"
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
     return (
         <IonPage>
             <IonContent fullscreen >
@@ -13,10 +100,10 @@ const EditMac: React.FC = () => {
                     <label className='addmactext'>Device Name: </label> <br />
                     <input type="text" className="textbox" placeholder='Device Name...' /> <br /> <br />
                     <label className='addmactext'>Address: </label> <br />
-                    <input type="text" className="textbox" placeholder='e.g: 00:1B:44:11:3A:B7' />
+                    <input type="text" className="textbox" id="addressinp" placeholder='e.g: 00:1B:44:11:3A:B7' />
                 </div> <br />
-                <button className='btn savebtn'>Save Changes</button> <br />
-                <button className='del btn'>Delete MAC-Address</button>
+                <button className='btn savebtn' onClick={Save}>Save Changes</button> <br />
+                <button className='del btn' onClick={Delete}>Delete MAC-Address</button>
             </IonContent>
             <div className='closediv'>
                 <input type="button" className='closebtn' onClick={goback} value="< Back" />
