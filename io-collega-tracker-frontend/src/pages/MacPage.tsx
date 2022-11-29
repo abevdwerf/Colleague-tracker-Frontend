@@ -19,7 +19,7 @@ const MacPage: React.FC = () => {
         }
 
         useEffect(() => {
-            axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
+            axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
                 .then(res => {
                     if (res.status === 200) {
                         setAddresses(res.data);
@@ -30,8 +30,12 @@ const MacPage: React.FC = () => {
                 })
         }, []);
 
+        console.log(Addresses);
+        console.log(localStorage.getItem("token"));
         return Addresses;
     }
+
+    ListAddresses();
 
     function goback() {
         window.location.href = "/settings"
