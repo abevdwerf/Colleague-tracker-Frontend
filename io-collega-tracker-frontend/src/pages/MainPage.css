@@ -70,3 +70,6 @@ ion-content {
     color: white;
     width: 100px;
 }
+.notifybtn:disabled {
+    filter: grayscale(70%);
+}

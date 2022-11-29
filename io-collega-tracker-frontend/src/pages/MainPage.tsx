@@ -23,7 +23,7 @@ const register = () => {
           "Content-Type": "text/plain"
         },
         params: {
-          fcmToken: JSON.stringify(token.value)
+          fcmToken: token.value
         }
       }
 
