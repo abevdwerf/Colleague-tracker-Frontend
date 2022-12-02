@@ -1,4 +1,7 @@
 ion-content {
+    --padding-top: 50px;
+    --padding-start: 30px;
+    --padding-end: 30px;
     text-align: center;
     position: absolute;
     left: 0;

@@ -5,6 +5,30 @@ import axios from 'axios';
 import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
+import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
+
+
+
+const register = () => {
+  
+  PushNotifications.register();
+  // On success, we should be able to receive notifications
+  PushNotifications.addListener('registration',
+    (token: Token) => {
+      console.log(token)
+      window.alert(JSON.stringify(token.value));
+      (document.getElementById('myInput')as HTMLInputElement).value = JSON.stringify(token.value)
+    }
+  );
+  
+  // Some issue with our setup and push will not work
+  PushNotifications.addListener('registrationError',
+    (error: any) => {
+      alert('Error on registration: ' + JSON.stringify(error));
+    }
+  );
+  };
+  register();
 
 //declare var google:any;
 
@@ -16,6 +40,7 @@ const GoogleLogin: React.FC = () => {
     const response = await GoogleAuth.signIn()
     let isLoggedIn = false
       console.log(response)
+      console.log(response.authentication.idToken)
       let config = {
         headers: {
           idToken: response.authentication.idToken,
@@ -76,6 +101,9 @@ const GoogleLogin: React.FC = () => {
     <IonPage>
       <IonContent fullscreen>
         <div className='content'>
+          <img width="50%" height="50%" src="https://cdn.uc.assets.prezly.com/5d6dc65d-f349-4636-9b4b-cd08956d19ce/-/resize/992/-/format/png/" />
+          <br />
+          <br />
           <h1>Please log in with a valid Google account to continue.</h1> <br />
           <label className='label'>If you have never logged in before, you will be prompted to verify your role as an iO employee by entering your iO email address.</label>
           <br />

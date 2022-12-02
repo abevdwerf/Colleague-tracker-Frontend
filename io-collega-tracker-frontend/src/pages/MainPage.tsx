@@ -7,6 +7,52 @@ import ReactDOM from 'react-dom/client';
 
 const MainPage: React.FC = () => {
 
+  // let colleaguelist:any;
+  // let colleagues:any;
+
+
+  // function ListFavoriteColleagues() {
+  //     console.log("getting colleagues")
+  //     colleaguelist = [];
+  //     colleagues = [];
+
+  //     let config = {
+  //         headers: {
+  //           idToken: localStorage.getItem("token"),
+  //         }
+  //       }
+
+
+  //     axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
+  //     .then(res => {
+  //         if (res.status === 200) {
+  //             console.log(res.data)
+  //             for (let index = 0; index < res.data.length; index++) {
+  //                 colleagues.push(res.data[index])
+
+  //             }
+  //             console.log(colleagues.length)
+  //             for (let i = 0; i < colleagues.length; i++) {
+  //                 //console.log(colleagues)
+  //                 colleaguelist.push(<ColleagueCard name={colleagues[i].firstName} location={colleagues[i].status} status="Test" />);
+  //                 colleaguelist.push(<br />);
+  //             }
+  //         }
+  //     })
+  //     .catch(err => {
+  //         console.log(err)
+  //     })
+
+
+  //    //console.log(colleagues)
+  //     //console.log(colleaguelist)
+
+  //     // for (let i = 0; i < 5; i++) {
+  //     //     colleaguelist.push(<ColleagueCard name="a" location='Office' status='Available' />);
+  //     //     colleaguelist.push(<br />);
+  //     // }
+  // }
+
   let colleaguelist = [] as any;
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
@@ -62,20 +108,20 @@ const MainPage: React.FC = () => {
   }
 
   function SearchColleagues() {
-    var input = (document.getElementById('searchbox') as HTMLInputElement).value;
+    var input = (document.getElementById('searchbox') as HTMLInputElement).value.toLowerCase();
     var APICall = Users;
     var names: Array<string> = [];
 
     for (let i = 0; i < APIcall.length; i++) {
       let fullname = APICall[i]['firstName'] + " " + APICall[i]['lastName']
-      names.push(fullname.toString());
+      names.push(fullname.toString().toLowerCase());
     }
 
     const filtered = names.filter(name => name.includes(input));
     colleaguelist = [];
 
     for (let i = 0; i < APICall.length; i++) {
-      if (filtered.includes(APICall[i]['firstName'] + " " + APICall[i]['lastName'])) {
+      if (filtered.includes((APICall[i]['firstName'] + " " + APICall[i]['lastName']).toLowerCase())) {
         colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
         colleaguelist.push(<br key={i + "br"} />);
       }
@@ -161,7 +207,6 @@ const MainPage: React.FC = () => {
             })()}
       </IonHeader>
       <IonContent fullscreen>
-        <div className='content'>
           {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
           {/* <input type="text" id="searchbox" className='searchbox' placeholder='&#xf002; Search Colleagues...' onChange={SearchColleagues} ref={searchInput}></input><br /> */}
           <div id="contentcontainer">
@@ -188,12 +233,11 @@ const MainPage: React.FC = () => {
               </select>
               <button className='btn' onClick={refreshPage}>Reset All Filters</button>
             </div>
-          </div> <br /> */}
+        </div> <br /> */}
 
           <div className='colleagues' id="list" hidden>
             {colleaguelist}
           </div>
-        </div>
       </IonContent>
     </IonPage>
   );

@@ -93,7 +93,7 @@ const MailConfirm: React.FC = () => {
           <label className='checkcontainer'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
             <input type="checkbox" id="myCheckbox" onChange={SetButton}/>
             <span className="checkmark"></span>
-          </label> <br /><br /><br />
+          </label>
           <div className='submit'>
             <button onClick={submitEmail} className='btn-disabled' id="submit"><b>CONFIRM EMAIL</b></button><br /><br />
             <label className="label">Verify your email address to prove</label><br />
