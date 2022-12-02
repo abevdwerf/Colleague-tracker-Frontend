@@ -5,7 +5,7 @@ import "./Profile.css"
 
 const LocationSetting: React.FC = () => {
 
-  const [Status, SetStatus] = useState("unkown");
+  const [Status, SetStatus] = useState("Unkown");
 
   const [StartTime, SetStartTime] = useState(
     useEffect(() => {

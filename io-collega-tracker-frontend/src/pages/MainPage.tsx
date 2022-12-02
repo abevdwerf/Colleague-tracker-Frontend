@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonGrid, IonRow, IonCol, IonButtons, IonBackButton, IonToolbar, IonTitle} from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle } from '@ionic/react';
 import React, { useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
@@ -6,53 +6,6 @@ import './MainPage.css';
 import ReactDOM from 'react-dom/client';
 
 const MainPage: React.FC = () => {
-
-  // let colleaguelist:any;
-  // let colleagues:any;
-
-
-  // function ListFavoriteColleagues() {
-  //     console.log("getting colleagues")
-  //     colleaguelist = [];
-  //     colleagues = [];
-
-  //     let config = {
-  //         headers: {
-  //           idToken: localStorage.getItem("token"),
-  //         }
-  //       }
-
-
-  //     axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
-  //     .then(res => {
-  //         if (res.status === 200) {
-  //             console.log(res.data)
-  //             for (let index = 0; index < res.data.length; index++) {
-  //                 colleagues.push(res.data[index])
-
-  //             }
-  //             console.log(colleagues.length)
-  //             for (let i = 0; i < colleagues.length; i++) {
-  //                 //console.log(colleagues)
-  //                 colleaguelist.push(<ColleagueCard name={colleagues[i].firstName} location={colleagues[i].status} status="Test" />);
-  //                 colleaguelist.push(<br />);
-  //             }
-  //         }
-  //     })
-  //     .catch(err => {
-  //         console.log(err)
-  //     })
-
-
-  //    //console.log(colleagues)
-  //     //console.log(colleaguelist)
-
-  //     // for (let i = 0; i < 5; i++) {
-  //     //     colleaguelist.push(<ColleagueCard name="a" location='Office' status='Available' />);
-  //     //     colleaguelist.push(<br />);
-  //     // }
-  // }
-
   let colleaguelist = [] as any;
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
@@ -171,7 +124,7 @@ const MainPage: React.FC = () => {
     root.render(result);
   }
 
-  function ShowHistory() {
+  function HandleOnFocus() {
     setCancelButton(true);
     const contentcontainer = document.getElementById("contentcontainer");
     const colleaguelistdiv = document.getElementById("list");
@@ -194,13 +147,13 @@ const MainPage: React.FC = () => {
           {(() => {
               if (CancelButton) {
                 return (
-                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={ShowHistory} onIonCancel={HandleOnCancel} ref={searchInput}>
+                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={HandleOnFocus} onIonCancel={HandleOnCancel} ref={searchInput}>
                   </IonSearchbar>
                 );
               }
               else {
                 return (
-                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonChange={SearchColleagues} >
+                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonFocus={HandleOnFocus} >
                   </IonSearchbar>
                 );
               }
@@ -208,7 +161,6 @@ const MainPage: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
           {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
-          {/* <input type="text" id="searchbox" className='searchbox' placeholder='&#xf002; Search Colleagues...' onChange={SearchColleagues} ref={searchInput}></input><br /> */}
           <div id="contentcontainer">
             <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> <br />
             <h5 className='titlefavorite'>Favorites</h5>
@@ -233,7 +185,7 @@ const MainPage: React.FC = () => {
               </select>
               <button className='btn' onClick={refreshPage}>Reset All Filters</button>
             </div>
-        </div> <br /> */}
+          </div> <br /> */}
 
           <div className='colleagues' id="list" hidden>
             {colleaguelist}
