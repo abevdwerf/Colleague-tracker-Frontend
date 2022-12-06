@@ -1,4 +1,13 @@
 # Change Log
+## V23 - 06/12/2022
+Belangrijk! We hebben de database leeg gemaakt dus jullie zullen volledig opnieuw moeten inloggen
+
+Deze release bevat de volgende aanpassingen:
+
+- Zodra je iemand notified zal de knop uitgeschakeld worden voor het komende kwartier zodat je niet iemand kan blijven notifyen.
+- Het toevoegen van MAC-Adressen heeft nu daadwerkelijk zin want deze worden nu al gebruikt om te kijken of je op kantoor bent.
+- De tijden instellen voor je status werkt nu een stuk beter, je krijgt ook betere feedback zodat je goed ziet welke status je hebt en wanneer deze geld.
+- In de backend kan ik al herkennen of een MAC-Adres/User aanwezig is op kantoor, dit kan je alleen nog niet in de front-end zien maar dat zullen we spoedig maken.
 
 ## V22 - 29/11/2022
 Deze release bevat de volgende aanpassingen:
