@@ -69,7 +69,7 @@ function Notify(id: string) {
 
     const d = new Date();
     const time = d.getTime() / 1000;
-    const timer = time + 15;
+    const timer = time + 300;
     console.log("btn time: "+time)
     AlertsList.push({ userId: id, AlertTimer: timer })
     window.localStorage.setItem("AlertSentTime", JSON.stringify(AlertsList));
