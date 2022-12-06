@@ -74,6 +74,9 @@ const LocationSetting: React.FC = () => {
       })
       .catch((err: any) => {
         console.log(err)
+        if (err.response.status === 401) {
+          window.location.href= "/googlelogin";
+        }
       });
   }
 
