@@ -56,7 +56,7 @@ const LocationSetting: React.FC = () => {
             document.getElementById("starttime")?.setAttribute("max", EndTime as string);
             document.getElementById("endtime")?.setAttribute("min", StartTime as string);
 
-            (document.getElementById("time") as HTMLParagraphElement).innerHTML = "Working from " + startdate.substring(0, 5) + " to " + enddate.substring(0, 5);
+            (document.getElementById("time") as HTMLParagraphElement).innerHTML = startdate.substring(0, 5) + " - " + enddate.substring(0, 5);
             (document.getElementById("timeupdate") as HTMLButtonElement).hidden = true;
           }
           else {
