@@ -75,7 +75,7 @@ function Notify(id: string) {
     window.localStorage.setItem("AlertSentTime", JSON.stringify(AlertsList));
 
     console.log(AlertsList)
-    // window.location.reload();
+    window.location.reload();
 }
 
 const ColleagueCard: React.FC<ColleagueCardProps> = ({ first_name, last_name, location, id }) => {
