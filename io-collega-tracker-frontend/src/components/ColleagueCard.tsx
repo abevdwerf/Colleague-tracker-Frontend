@@ -11,7 +11,8 @@ interface ColleagueCardProps {
 }
 
 let AlertsList: any;
-if (JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}').length === 1) {
+
+if (JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}').length === 1 || window.localStorage.getItem("AlertSentTime") == null) {
     AlertsList = [{}]
 }
 else {
