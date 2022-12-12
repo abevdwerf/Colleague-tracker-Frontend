@@ -87,7 +87,7 @@ const MainPage: React.FC = () => {
   let APIcall = ListColleagues();
   for (let i = 0; i < APIcall.length; i++) {
     //   colleaguelist.push(<ColleagueCard name={APIcall[i].firstName} location={APIcall[i].status} status={"Test"} />);
-    colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
+    colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} id={Users[i]['id']} key={i} />);
     colleaguelist.push(<br key={i + "br"} />);
   }
   //ListFavoriteColleagues()
@@ -125,7 +125,7 @@ const MainPage: React.FC = () => {
 
     for (let i = 0; i < APICall.length; i++) {
       if (filtered.includes(APICall[i]['firstName'] + " " + APICall[i]['lastName'])) {
-        colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} key={i} />);
+        colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']} id={Users[i]['id']} key={i} />);
         colleaguelist.push(<br key={i + "br"} />);
       }
     }
@@ -153,7 +153,7 @@ const MainPage: React.FC = () => {
 
     for (let i = 0; i < Users.length; i++) {
       if (Users[i]['status'] == option) {
-        colleaguelist.push(<ColleagueCard first_name={Users[i]['firstName']} last_name={Users[i]['lastName']} location={Users[i]['status']} key={i} />);
+        colleaguelist.push(<ColleagueCard first_name={Users[i]['firstName']} last_name={Users[i]['lastName']} location={Users[i]['status']} id={Users[i]['id']} key={i} />);
         colleaguelist.push(<br key={i + "br"} />);
       }
     }

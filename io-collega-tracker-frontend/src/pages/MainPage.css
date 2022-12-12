@@ -73,3 +73,12 @@ ion-content {
 .colleagues {
     /* margin-top: 20px; */
 }
+
+.notifybtn {
+    background-color: #4E54C5;
+    color: white;
+    width: 100px;
+}
+.notifybtn:disabled {
+    filter: grayscale(70%);
+}

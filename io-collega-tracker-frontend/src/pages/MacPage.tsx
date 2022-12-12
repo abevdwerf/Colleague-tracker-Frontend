@@ -7,7 +7,6 @@ import './MacPage.css';
 
 const MacPage: React.FC = () => {
     let addresslist = [] as any;
-    let addresses = [];
     const [Addresses, setAddresses] = useState([]);
 
     const ListAddresses = () => {
@@ -17,9 +16,8 @@ const MacPage: React.FC = () => {
                 idToken: localStorage.getItem("token"),
             }
         }
-
         useEffect(() => {
-            axios.get(process.env.REACT_APP_ROOT_API + `/status/get-all-colleagues`, config)
+            axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
                 .then(res => {
                     if (res.status === 200) {
                         setAddresses(res.data);
@@ -33,13 +31,15 @@ const MacPage: React.FC = () => {
         return Addresses;
     }
 
+    ListAddresses();
+
     function goback() {
         window.location.href = "/settings"
     }
 
     //let APIcall = ListAddresses();
-    for (let i = 0; i < 3; i++) {
-        addresslist.push(<MacCard name="*device*" address="*address*" key={i} />);
+    for (let i = 0; i < Addresses.length; i++) {
+        addresslist.push(<MacCard name="*device*" address={Addresses[i]["addressValue"]} key={i} index={Addresses[i]["id"]} />);
         addresslist.push(<br key={i + "br"} />);
     }
 
