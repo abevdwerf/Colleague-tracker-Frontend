@@ -82,3 +82,12 @@ ion-content {
 .notifybtn:disabled {
     filter: grayscale(70%);
 }
+
+.containeractionbuttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.filtericon {
+    margin-top: 25px;
+}

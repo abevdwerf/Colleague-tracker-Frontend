@@ -1,14 +1,11 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle } from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle, IonIcon, IonButtons, IonButton, IonToolbar, IonModal } from '@ionic/react';
 import React, { useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { location } from 'ionicons/icons';
+import { close, filter, location, search } from 'ionicons/icons';
 import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
-
-        
-
 
 const register = () => {
   PushNotifications.register();
@@ -49,6 +46,7 @@ const MainPage: React.FC = () => {
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
+  const [isOpen, setIsOpen] = useState(false);
 
   const ListColleagues = () => {
 
@@ -187,25 +185,41 @@ const MainPage: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
+        {/* <IonToolbar color="translucent"> */}
           {(() => {
               if (CancelButton) {
                 return (
-                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={HandleOnFocus} onIonCancel={HandleOnCancel} ref={searchInput}>
-                  </IonSearchbar>
+                  <div>
+                    <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={HandleOnFocus} onIonCancel={HandleOnCancel} ref={searchInput}>
+                    </IonSearchbar>
+                    {/* <IonButtons slot="end">
+                        <IonButton>
+                          <IonIcon icon={filter}></IonIcon>
+                        </IonButton>
+                    </IonButtons> */}
+                  </div>
                 );
               }
               else {
                 return (
-                  <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonFocus={HandleOnFocus} >
-                  </IonSearchbar>
+                  <div>
+                    <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonFocus={HandleOnFocus} >
+                    </IonSearchbar>
+                  </div>
                 );
               }
             })()}
+        {/* </IonToolbar> */}
       </IonHeader>
       <IonContent fullscreen>
           {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
+        {/* <div> */}
           <div id="contentcontainer">
-            <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> <br />
+            <div className="containeractionbuttons">
+              <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> 
+                <IonIcon onClick={() => setIsOpen(true)} className="filtericon" color="light" size="large" slot='icon-only' icon={filter}></IonIcon>
+            </div>
+            <br />
             <h5 className='titlefavorite'>Favorites</h5>
               {/* favorite colleagues */}
           </div>
@@ -233,6 +247,29 @@ const MainPage: React.FC = () => {
           <div className='colleagues' id="list" hidden>
             {colleaguelist}
           </div>
+        {/* </div> */}
+
+        <IonModal isOpen={isOpen}>
+          <IonHeader>
+            <IonToolbar color="translucent">
+              <IonTitle>Filters</IonTitle>
+              <IonButtons slot="start">
+                <IonButton onClick={() => setIsOpen(false)}><IonIcon icon={close}></IonIcon></IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent fullscreen >
+            <div>
+            <button className='btn' id="allcolleaguesbtn">RESET FILTERS</button> 
+            </div>
+
+            <h5>Locations:</h5>
+            <div>
+              <button>Home</button>
+              <button>Office</button>
+            </div>
+          </IonContent>
+        </IonModal>
       </IonContent>
     </IonPage>
   );
