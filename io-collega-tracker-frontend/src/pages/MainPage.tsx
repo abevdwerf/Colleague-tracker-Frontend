@@ -7,6 +7,7 @@ import ReactDOM from 'react-dom/client';
 import { location } from 'ionicons/icons';
 import { PushNotificationSchema, PushNotifications, Token, ActionPerformed } from '@capacitor/push-notifications';
 
+        
 
 
 const register = () => {
@@ -29,6 +30,7 @@ const register = () => {
       axios.post(process.env.REACT_APP_ROOT_API + `/notification/fcm/set`, null, config)
         .then(res => {
           console.log(res)
+
       });
     }
   );
@@ -65,6 +67,9 @@ const MainPage: React.FC = () => {
         })
         .catch(err => {
           console.log(err)
+          if (err.response.status === 401) {
+            window.location.href= "/googlelogin";
+          }
         })
     }, []);
 
