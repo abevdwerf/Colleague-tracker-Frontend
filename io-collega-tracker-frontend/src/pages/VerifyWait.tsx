@@ -1,7 +1,6 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonContent, IonPage, } from '@ionic/react';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import ExploreContainer from '../components/ExploreContainer';
 import './VerifyWait.css';
 
 const VerifyWait: React.FC = () => {

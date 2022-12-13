@@ -1,19 +1,34 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { cloneElement, useEffect } from 'react';
+import { IonButton, IonButtons, IonContent, IonHeader, IonModal, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
-import ColleagueCard from '../components/ColleagueCard';
-import ExploreContainer from '../components/ExploreContainer';
 import './Settings.css';
 
 const Settings: React.FC = () => {
+    const modal = useRef<HTMLIonModalElement>(null);
+
     return (
         <IonPage>
             <IonContent fullscreen >
-                    <h1>Settings</h1> <br />
-                    <button className='settingsbtn'>Profile</button> <br />
-                    <button className='settingsbtn'>Nofitications</button> <br />
-                    <Link to="/macpage"><button className='settingsbtn'>MAC-Addresses</button></Link> <br />
-                    <button className='settingsbtn'>Terms & Conditions</button> <br />               
+                <h1>Settings</h1> <br />
+                <button className='settingsbtn'>Nofitications</button> <br />
+                <Link to="/macpage"><button className='settingsbtn'>MAC-Addresses</button></Link> <br />
+                <button className='settingsbtn' id="open-modal">Terms & Conditions</button> <br />
+
+                <IonModal ref={modal} trigger="open-modal" className='ionmodal'>
+                    <IonHeader>
+                        <IonToolbar>
+                            <IonButtons slot="start">
+                                <IonButton className='ionmodal' onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                            </IonButtons>
+                            <IonTitle className='ionmodal'>Terms & Conditions</IonTitle>
+                        </IonToolbar>
+                    </IonHeader>
+                    <IonContent className='ionmodal'>
+                        <br />
+                        <p>(terms and conditions here)</p>
+                    </IonContent>
+                </IonModal>
+
             </IonContent>
         </IonPage>
     );
