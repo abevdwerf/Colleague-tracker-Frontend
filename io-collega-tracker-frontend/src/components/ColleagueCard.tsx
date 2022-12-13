@@ -8,6 +8,8 @@ interface ColleagueCardProps {
     last_name: string;
     location: string;
     id: string;
+    beginTime: string;
+    expirationTime: string;
 }
 
 let AlertsList: any;

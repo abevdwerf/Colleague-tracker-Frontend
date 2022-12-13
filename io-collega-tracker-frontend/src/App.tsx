@@ -37,7 +37,6 @@ import '@ionic/react/css/display.css';
 import './theme/variables.css';
 import LocationSetting from './pages/Profile';
 import MainPage from './pages/MainPage';
-import AllColleagues from './pages/AllColleagues';
 import Settings from './pages/Settings';
 import AddMac from './pages/AddMac';
 import EditMac from './pages/EditMac';
@@ -66,9 +65,6 @@ const App: React.FC = () => (
           </Route>
           <Route exact path="/mainpage">
             <MainPage />
-          </Route>
-          <Route exact path="/allcolleagues">
-            <AllColleagues />
           </Route>
           <Route exact path="/settings">
             <Settings />
