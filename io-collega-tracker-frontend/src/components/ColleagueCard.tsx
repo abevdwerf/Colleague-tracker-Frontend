@@ -19,7 +19,7 @@ else {
     AlertsList = JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}');
 
     setInterval(function () {
-        console.log(AlertsList.length)
+        // console.log(AlertsList.length)
         for (let index = 1; index < AlertsList.length; index++) {
             const d = new Date();
             const time = d.getTime() / 1000;

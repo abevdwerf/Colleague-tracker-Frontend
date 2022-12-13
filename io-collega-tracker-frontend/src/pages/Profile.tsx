@@ -2,6 +2,7 @@ import { IonDatetimeButton, IonContent, IonPage, IonDatetime, IonPopover } from 
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import "./Profile.css"
+import Image from "../profile-icon-9.png"
 
 const LocationSetting: React.FC = () => {
 
@@ -149,7 +150,7 @@ const LocationSetting: React.FC = () => {
         <h1>Your Profile</h1> <br />
         <div className='blockcontainer'>
           <div className="profilepic">
-            <img alt='profile picture' className="pfp" src={localStorage.getItem("photo_url") || undefined}></img>
+            <img alt='profile picture' id='pfp' className="pfp" src={localStorage.getItem("photo_urls") || Image}></img>
           </div>
           <div className="profilecontainer">
             <h2>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h2>
