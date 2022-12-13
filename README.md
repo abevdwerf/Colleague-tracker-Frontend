@@ -1,4 +1,17 @@
 # Change Log
+## V24 - 13/12/2022
+Deze release bevat de volgende aanpassingen
+
+- De bug waar de profielfoto niet zichtbaar was is opgelost, zodra dit gebeurd wordt de foto vervangen met een standaard foto.
+- Je kan mac adressen nu daadwerkelijk labels geven zodat je ze beter kan herkennen.
+- Zodra een gebruiker op kantoor is en zelf geen status heeft aangegeven wordt dit zichtbaar in de app voor de andere werknemers, in principe werkt het hele systeem nu zo:
+Zodra je geen status voor de dag hebt ingesteld en het systeem ziet (via de wifilogs) dat je op kantoor bent, dan zal de app je status als op kantoor weergeven. Zodra je wel een status zet zal dit de automatische status overschrijven. 
+- Op dit moment moet je nog elk macadres handmatig toevoegen, dit betekent dat de telefoon waar de app op staat niet automatisch geregistreerd wordt in de backend als macadres.
+- We hebben de iO email check er weer in gezet, dit betekend dat je nu alleen je account kan verifieren met een @iodigital.com email. We hebben onze eigen emails toegevoegd als "backdoor" zodat we gewoon verder kunnen gaan met testen.
+- De pagina waar je uitkomt als je op de link in de mail klikt is nu niet meer een kale witte pagina maar heeft nu daadwerkelijk styling en ziet er dus wat prettiger uit om naar te kijken.
+- Er komt nu een pop-up als je op de terms and conditions klikt tijdens het verifieren van je mail en in de settings pagina, deze terms and conditions zijn nog leeg omdat we niks hebben ontvangen van iO.
+
+
 ## V23 - 06/12/2022
 Belangrijk! We hebben de database leeg gemaakt dus jullie zullen volledig opnieuw moeten inloggen
 

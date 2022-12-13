@@ -1,7 +1,8 @@
 import { IonDatetimeButton, IonContent, IonPage, IonDatetime, IonPopover } from '@ionic/react';
 import axios from 'axios';
-import React, { SetStateAction, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Profile.css"
+import Image from "../profile-icon-9.png"
 
 const LocationSetting: React.FC = () => {
 
@@ -9,9 +10,6 @@ const LocationSetting: React.FC = () => {
 
   const [StartTime, SetStartTime] = useState<string>();
   const [EndTime, SetEndTime] = useState<string>();
-
-  const [rendercount, SetCount] = useState(0);
-  const [fromUnknown, setFrom] = useState(false);
 
   useEffect(() => {
     GetStatus();
@@ -34,9 +32,39 @@ const LocationSetting: React.FC = () => {
     axios.get(process.env.REACT_APP_ROOT_API + `/status/get`, config)
       .then((res: any) => {
         if (res.status === 200) {
-          SetStatus(res.data.status);
-
-          if (res.data.beginTime !== null && res.data.expirationTime !== null && Status !== "Unknown") {
+          if (res.data.status === "Unknown" && res.data.detectedAtOffice === false && res.data.active === false) {
+            SetStatus("Unknown");
+          }
+          else if (res.data.status !== "Unknown" && res.data.detectedAtOffice == true && res.data.active == false) {
+            SetStatus("Office");
+          }
+          else if (res.data.status !== "Unknown" && res.data.detectedAtOffice == true && res.data.active == true) {
+            SetStatus(res.data.status);
+          }
+          else if (res.data.status !== "Unknown" && res.data.detectedAtOffice == true && res.data.active == false) {
+            SetStatus("Unknown");
+            if (Status == "Office") {
+              SetYesButtonActive();
+              console.log("ye");
+            }
+            else if (Status == "Home") {
+              SetNoButtonActive();
+            }
+          }
+          else if (res.data.status !== "Unknown" && res.data.detectedAtOffice == false && res.data.active == true) {
+            SetStatus(res.data.status);
+          }
+          else if (res.data.status !== "Unknown" && res.data.detectedAtOffice == false && res.data.active == false) {
+            SetStatus("Unknown");
+            if (Status == "Office") {
+              SetYesButtonActive();
+              console.log("ye");
+            }
+            else if (Status == "Home") {
+              SetNoButtonActive();
+            }
+          }
+          if (res.data.beginTime !== null && res.data.expirationTime !== null) {
             var startdate = new Date(res.data.beginTime * 1000).toISOString().split('T')[1].split('.')[0];
             var updatedstartdate = (parseInt((startdate.substring(0, 2))) + 1).toString();
             if (updatedstartdate.length === 1) {
@@ -56,8 +84,21 @@ const LocationSetting: React.FC = () => {
             document.getElementById("starttime")?.setAttribute("max", EndTime as string);
             document.getElementById("endtime")?.setAttribute("min", StartTime as string);
 
-            (document.getElementById("time") as HTMLParagraphElement).innerHTML = startdate.substring(0, 5) + " - " + enddate.substring(0, 5);
             (document.getElementById("timeupdate") as HTMLButtonElement).hidden = true;
+
+            var newDate = new Date().toISOString().split('T')[1].substring(0, 5).split(":");
+            var newTime = parseInt(newDate[0] + newDate[1]) + 100;
+
+            var bstartdate = new Date(res.data.beginTime * 1000).toISOString().split('T')[1].split('.')[0].substring(0, 5);
+            var midstartdate = bstartdate.split(":");
+            var newstartdate = parseInt(midstartdate[0] + midstartdate[1]) + 100;
+            console.log()
+            if (newstartdate > newTime) {
+              (document.getElementById("time") as HTMLParagraphElement).innerHTML = "At " + res.data.status + " from " + startdate.substring(0, 5) + " - " + enddate.substring(0, 5);
+            }
+            else {
+              (document.getElementById("time") as HTMLParagraphElement).innerHTML = startdate.substring(0, 5) + " - " + enddate.substring(0, 5);
+            }
           }
           else {
             SetStartTime(new Date().toISOString().split('T')[0] + "T09:00:00+01:00");
@@ -69,7 +110,7 @@ const LocationSetting: React.FC = () => {
       .catch((err: any) => {
         console.log(err)
         if (err.response.status === 401) {
-          window.location.href= "/googlelogin";
+          window.location.href = "/googlelogin";
         }
       });
   }
@@ -154,34 +195,15 @@ const LocationSetting: React.FC = () => {
 
   function SetStart(value: any) {
     SetStartTime(value);
-    SetCount(rendercount + 1);
-    if (rendercount > 1 && (Status === "Office" || Status === "Home") && fromUnknown === false) {
-      console.log("asads");
+    if (Status === "Office" || Status === "Home") {
       (document.getElementById("timeupdate") as HTMLButtonElement).hidden = false;
-    }
-    else if (Status !== "Office" && Status !== "Home") {
-      setFrom(true);
-    }
-    else if (fromUnknown === true)
-    {
-      setFrom(false);
     }
   }
 
   function SetEnd(value: any) {
     SetEndTime(value);
-    SetCount(rendercount + 1);
-    if (rendercount > 1 && (Status === "Office" || Status === "Home") && fromUnknown === false) {
-      console.log("asads");
+    if (Status === "Office" || Status === "Home") {
       (document.getElementById("timeupdate") as HTMLButtonElement).hidden = false;
-    }
-    else if (Status !== "Office" && Status !== "Home") {
-      setFrom(true);
-      console.log("from true")
-    }
-    else if (fromUnknown === true)
-    {
-      setFrom(false);
     }
   }
 
@@ -200,7 +222,7 @@ const LocationSetting: React.FC = () => {
         <h1>Your Profile</h1> <br />
         <div className='blockcontainer'>
           <div className="profilepic">
-            <img alt='profile picture' className="pfp" src={localStorage.getItem("photo_url") || undefined}></img>
+            <img alt='profile picture' id='pfp' className="pfp" src={localStorage.getItem("photo_urls") || Image}></img>
           </div>
           <div className="profilecontainer">
             <h2>{localStorage.getItem("first_name")} {localStorage.getItem("last_name")}</h2>

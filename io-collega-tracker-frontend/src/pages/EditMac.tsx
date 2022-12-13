@@ -1,6 +1,5 @@
-import { IonContent, IonPage } from '@ionic/react';
+import { IonContent, IonPage, useIonAlert } from '@ionic/react';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 function goback() {
     localStorage.removeItem("addressid");
@@ -10,6 +9,7 @@ function goback() {
 const EditMac: React.FC = () => {
 
     let id: number;
+    const [presentAlert] = useIonAlert();
 
     const GetAddress = () => {
 
@@ -18,17 +18,17 @@ const EditMac: React.FC = () => {
                 idToken: localStorage.getItem("token"),
             }
         }
+
         axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
             .then(res => {
                 if (res.status === 200) {
-                    console.log(localStorage.getItem("addressid"))
                     for (let i = 0; i < res.data.length; i++)
                     {
-                        console.log(res.data[i]["id"])
                         if (res.data[i]["id"] == localStorage.getItem("addressid"))
                         {
                             id = res.data[i]["id"];
                             (document.getElementById("addressinp") as HTMLInputElement).value = res.data[i]["addressValue"];
+                            (document.getElementById("labelinp") as HTMLInputElement).value = res.data[i]["label"];
                         }
                     }
                 }
@@ -46,6 +46,7 @@ const EditMac: React.FC = () => {
                 idToken: localStorage.getItem("token"),
             },
             params: {
+                newLabel: (document.getElementById("labelinp") as HTMLInputElement).value.toString(),
                 newMACAddress: (document.getElementById("addressinp") as HTMLInputElement).value,
                 oldMACAddressID: id
             }
@@ -61,20 +62,13 @@ const EditMac: React.FC = () => {
             .catch(err => {
                 console.log(err);
                 if (err.response.data.message.includes("already present")) {
-                    DisplayError();
+                    presentAlert({
+                        header: 'MAC-Address',
+                        message: "You didn't change either field. If you don't want to change anything here, please go back to the previous page.",
+                        buttons: ['Ok'],
+                      })
                 }
             })
-    }
-
-    async function DisplayError() {
-        const alert = document.createElement('ion-alert');
-        alert.header = 'Error';
-        alert.subHeader = 'Could not add MAC-Address';
-        alert.message = 'This MAC-Address has already been added by someone else.';
-        alert.buttons = ['OK'];
-
-        document.body.appendChild(alert);
-        await alert.present();
     }
 
     function Delete() {
@@ -91,12 +85,12 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
-                    console.log(res);
                 }
             })
             .catch(err => {
                 console.log(err)
             })
+        goback();
     }
 
     return (
@@ -105,7 +99,7 @@ const EditMac: React.FC = () => {
                 <div className='addmacaddress'>
                     <h1>Edit MAC-Address</h1> <br />
                     <label className='addmactext'>Device Name: </label> <br />
-                    <input type="text" className="textbox" placeholder='Device Name...' /> <br /> <br />
+                    <input type="text" className="textbox" placeholder='Device Name...' id="labelinp"/> <br /> <br />
                     <label className='addmactext'>Address: </label> <br />
                     <input type="text" className="textbox" id="addressinp" placeholder='e.g: 00:1B:44:11:3A:B7' />
                 </div> <br />

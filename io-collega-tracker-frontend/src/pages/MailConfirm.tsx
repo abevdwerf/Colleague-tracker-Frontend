@@ -1,12 +1,11 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonLoading, useIonAlert } from '@ionic/react';
-import ExploreContainer from '../components/ExploreContainer';
+import { IonContent, IonModal, IonPage, useIonLoading, useIonAlert, IonButton, IonHeader, IonToolbar, IonButtons, IonTitle } from '@ionic/react';
 import axios from 'axios';
+import { useRef } from 'react';
 import './MailConfirm.css';
 
 const MailConfirm: React.FC = () => {
   const [present, dismiss] = useIonLoading();
   const [presentAlert] = useIonAlert();
-
 
   (document.getElementById("tab-bar") as HTMLElement).hidden = true;
 
@@ -46,11 +45,20 @@ const MailConfirm: React.FC = () => {
 
           else if (res.data.statusCode === 401) {
             dismiss();
-            presentAlert({
-              header: 'Mail Verification',
-              message: 'This email is already in use, please use a different email',
-              buttons: ['OK'],
-            })
+            if (res.data.message.includes("already")) {
+              presentAlert({
+                header: 'Mail Verification',
+                message: 'This email is already in use, please use a different email.',
+                buttons: ['OK'],
+              })
+            }
+            else if (res.data.message.includes("invalid")) {
+              presentAlert({
+                header: 'Mail Verification',
+                message: 'This email is invalid. Please enter a valid @iodigital email address.',
+                buttons: ['OK'],
+              })
+            }
           }
           dismiss();
         })
@@ -82,6 +90,7 @@ const MailConfirm: React.FC = () => {
         submitEmail();
     }
   };
+  const modal = useRef<HTMLIonModalElement>(null);
 
   return (
     <IonPage>
@@ -90,16 +99,31 @@ const MailConfirm: React.FC = () => {
           <i className="fa-solid fa-envelope fa-3x"></i>
           <h1>Enter your iO mail address:</h1>
           <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' onKeyDown={handleKeyDown}/> <br /><br /><br />
-          <label className='checkcontainer'>I've read and accepted the <a className='terms' href="">terms and conditions</a>.
-            <input type="checkbox" id="myCheckbox" onChange={SetButton}/>
+          <label className='checkcontainer'>I've read and accepted the <br /> <IonButton className='termsbtn' id="open-modal">terms and conditions</IonButton>
+            <input type="checkbox" id="myCheckbox" onChange={SetButton} />
             <span className="checkmark"></span>
           </label>
           <div className='submit'>
             <button onClick={submitEmail} className='btn-disabled' id="submit"><b>CONFIRM EMAIL</b></button><br /><br />
-            <label className="label">Verify your email address to prove</label><br />
-            <label className="label">that you are an iO employee.</label>
+            <label className="label">Verify your email address to prove that you are an iO digital staff member.</label>
           </div>
         </div>
+
+        <IonModal ref={modal} trigger="open-modal" className='ionmodal'>
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonButton className='ionmodal' onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+              </IonButtons>
+              <IonTitle className='ionmodal'>Terms & Conditions</IonTitle>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent className='ionmodal'>
+            <br />
+            <p>(terms and conditions here)</p>
+          </IonContent>
+        </IonModal>
+
       </IonContent>
     </IonPage>
   );
