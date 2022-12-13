@@ -1,10 +1,10 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle, IonIcon, IonButtons, IonButton, IonToolbar, IonModal } from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle, IonIcon, IonButtons, IonButton, IonToolbar, IonModal, IonChip } from '@ionic/react';
 import React, { useEffect, useState, useRef} from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { close, filter, location, search } from 'ionicons/icons';
+import { checkbox, checkmark, checkmarkSharp, close, filter, location, search } from 'ionicons/icons';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 
 const register = () => {
@@ -46,8 +46,9 @@ const MainPage: React.FC = () => {
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
-  const [isOpen, setIsOpen] = useState(false);
-
+  const [filterModalOpen, setFilterModalOpen] = useState(false);
+  const [allColleaguesModalOpen, setAllColleaguesModalOpen] = useState(false);
+  
   const ListColleagues = () => {
 
     let config = {
@@ -171,6 +172,7 @@ const MainPage: React.FC = () => {
   }
 
   function FilterColleagues() {
+    // getvalue
     var option = (document.getElementById('select') as HTMLSelectElement).value;
 
     colleaguelist = [];
@@ -232,52 +234,63 @@ const MainPage: React.FC = () => {
     colleaguelistdiv!.hidden = true;
   }
 
+  function filterHome() {
+    const filterhome = document.getElementById("filterhome");
+
+    filterhome?.classList.remove("activefilter");
+  }
+
+  function filterOffice() {
+    const filterhome = document.getElementById("filteroffice");
+    const icon = document.getElementById("checkicon");
+
+    filterhome?.classList.remove("activefilter");
+  }
+
   return (
     <IonPage>
       <IonHeader>
-        {/* <IonToolbar color="translucent"> */}
+        <IonToolbar>
           {(() => {
               if (CancelButton) {
                 return (
-                  <div>
+                  <>
                     <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={HandleOnFocus} onIonCancel={HandleOnCancel} ref={searchInput}>
                     </IonSearchbar>
                     {/* <IonButtons slot="end">
-                        <IonButton>
-                          <IonIcon icon={filter}></IonIcon>
+                        <IonButton onClick={() => setIsOpen(true)}>
+                          <IonIcon color="light" size="large" icon={filter}></IonIcon>
                         </IonButton>
                     </IonButtons> */}
-                  </div>
+                  </>
                 );
               }
               else {
                 return (
-                  <div>
+                  <>
                     <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonFocus={HandleOnFocus} >
                     </IonSearchbar>
-                  </div>
+                    <IonButtons slot="end">
+                        <IonButton onClick={() => setFilterModalOpen(true)}>
+                          <IonIcon color="light" size="large" icon={filter}></IonIcon>
+                        </IonButton>
+                    </IonButtons>
+                  </>
                 );
               }
             })()}
-        {/* </IonToolbar> */}
+        </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
           {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
-        {/* <div> */}
           <div id="contentcontainer">
             <div className="containeractionbuttons">
-              <button className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> 
-                <IonIcon onClick={() => setIsOpen(true)} className="filtericon" color="light" size="large" slot='icon-only' icon={filter}></IonIcon>
+              <button onClick={() => setAllColleaguesModalOpen(true)} className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> 
             </div>
             <br />
             <h5 className='titlefavorite'>Favorites</h5>
               {/* favorite colleagues */}
           </div>
-
-          {/* <div>
-            <h3>Recent searches</h3> <br />
-            <h4>Jan van de ven</h4> <br />
-          </div> */}
           
           {/* filter */}
           {/* <button onClick={refreshPage} className='btn'>Refresh Colleagues</button> <br />
@@ -297,27 +310,40 @@ const MainPage: React.FC = () => {
           <div className='colleagues' id="list" hidden>
             {colleaguelist}
           </div>
-        {/* </div> */}
 
-        <IonModal isOpen={isOpen}>
+        <IonModal isOpen={filterModalOpen}>
           <IonHeader>
             <IonToolbar color="translucent">
               <IonTitle>Filters</IonTitle>
               <IonButtons slot="start">
-                <IonButton onClick={() => setIsOpen(false)}><IonIcon icon={close}></IonIcon></IonButton>
+                <IonButton onClick={() => setFilterModalOpen(false)}><IonIcon size="large" icon={close}></IonIcon></IonButton>
               </IonButtons>
             </IonToolbar>
           </IonHeader>
-          <IonContent fullscreen >
-            <div>
-            <button className='btn' id="allcolleaguesbtn">RESET FILTERS</button> 
+          <IonContent fullscreen>
+            <div className="actionbuttonscontainer">
+              <button onClick={refreshPage} className='btn' id="resetfilterbtn">RESET FILTERS</button> 
             </div>
-
-            <h5>Locations:</h5>
-            <div>
-              <button>Home</button>
-              <button>Office</button>
+            <br />
+            <hr />
+            <br />
+            <div className='filterbuttonscontainer'>
+              <IonChip onClick={filterHome} className="activefilter" id="filterhome">Home <IonIcon hidden id="checkicon" size='medium' icon={checkmarkSharp}></IonIcon></IonChip>
+              <IonChip onClick={filterOffice} className="activefilter" id="filteroffice">Office <IonIcon id="checkicon" size='medium' icon={checkmarkSharp}></IonIcon></IonChip>
             </div>
+          </IonContent>
+        </IonModal>
+        
+        <IonModal isOpen={allColleaguesModalOpen}>
+          <IonHeader>
+            <IonToolbar color="translucent">
+              <IonTitle>All colleagues (10)</IonTitle>
+              <IonButtons slot="start">
+                <IonButton onClick={() => setAllColleaguesModalOpen(false)}><IonIcon size="large" icon={close}></IonIcon></IonButton>
+              </IonButtons>
+            </IonToolbar>
+          </IonHeader>
+          <IonContent fullscreen>
           </IonContent>
         </IonModal>
       </IonContent>

@@ -71,7 +71,7 @@ ion-content {
 }
 
 .colleagues {
-    /* margin-top: 20px; */
+    margin-top: 20px;
 }
 
 .notifybtn {
@@ -90,4 +90,58 @@ ion-content {
 
 .filtericon {
     margin-top: 25px;
+}
+
+ion-toolbar {
+    --background: linear-gradient(90deg, #F5AB5E 0%, #D86A69 100%);
+}
+
+hr {
+    background-color: white;
+}
+
+#resetfilterbtn {
+    font-weight: bold;
+    box-shadow: 0px 10px 6px rgba(0, 0, 0, 0.1);
+}
+
+.actionbuttonscontainer {
+    text-align: end;
+}
+
+.filterbuttonscontainer {
+    text-align: start;
+}
+
+.filterbtn {
+    color: black;
+    font-weight: bold;
+    font-size: medium;
+    background-color: white;
+    border-radius: 16px;
+    height: 70px;
+    width: 140px;
+    margin-right: 14px;
+}
+
+.filterbtn-active {
+    background-color: #4E54C5;
+    color: white;
+}
+
+#checkicon {
+    /* font-size: 20px;
+    height: 30px; */
+    color: white;
+}
+
+ion-chip {
+    --background: white;
+    --color: black;
+    font-weight: bold;
+}
+
+ion-chip.activefilter {
+    --background: #4E54C5;
+    --color: white;
 }
