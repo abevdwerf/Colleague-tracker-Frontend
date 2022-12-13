@@ -1,8 +1,7 @@
-import { IonContent, IonHeader, IonPage, IonTitle, IonToolbar, isPlatform, IonIcon, IonTabBar} from '@ionic/react';
+import { IonContent, IonPage, isPlatform, IonIcon} from '@ionic/react';
 import { logoGoogle } from 'ionicons/icons';
-import { useEffect, useState} from 'react'
+import { useEffect } from 'react'
 import axios from 'axios';
-import ExploreContainer from '../components/ExploreContainer';
 import './GoogleLogin.css';
 import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 
@@ -10,7 +9,6 @@ import { GoogleAuth } from '@codetrix-studio/capacitor-google-auth'
 
 const GoogleLogin: React.FC = () => {
   (document.getElementById("tab-bar") as HTMLElement).hidden = true;
-
 
   async function googleSignIn() {
     const response = await GoogleAuth.signIn()
