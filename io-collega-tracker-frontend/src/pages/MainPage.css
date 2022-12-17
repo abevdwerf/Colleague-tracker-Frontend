@@ -113,35 +113,8 @@ hr {
     text-align: start;
 }
 
-.filterbtn {
-    color: black;
-    font-weight: bold;
-    font-size: medium;
-    background-color: white;
-    border-radius: 16px;
-    height: 70px;
-    width: 140px;
-    margin-right: 14px;
-}
-
-.filterbtn-active {
-    background-color: #4E54C5;
-    color: white;
-}
-
-#checkicon {
-    /* font-size: 20px;
-    height: 30px; */
-    color: white;
-}
-
 ion-chip {
     --background: white;
     --color: black;
     font-weight: bold;
-}
-
-ion-chip.activefilter {
-    --background: #4E54C5;
-    --color: white;
 }

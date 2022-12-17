@@ -4,8 +4,9 @@ import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { checkbox, checkmark, checkmarkSharp, close, filter, location, search } from 'ionicons/icons';
+import { checkmarkSharp, close, filter } from 'ionicons/icons';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
+import Filter from '../components/ColleagueFilter';
 
 const register = () => {
   PushNotifications.register();
@@ -48,6 +49,9 @@ const MainPage: React.FC = () => {
   const searchInput = useRef(null);
   const [filterModalOpen, setFilterModalOpen] = useState(false);
   const [allColleaguesModalOpen, setAllColleaguesModalOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filters: string[] = ["all", "office", "home"];
   
   const ListColleagues = () => {
 
@@ -62,6 +66,7 @@ const MainPage: React.FC = () => {
         .then(res => {
           if (res.status === 200) {
             setUsers(res.data);
+            console.log(Users[1]["status"]);
           }
         })
         .catch(err => {
@@ -100,25 +105,6 @@ const MainPage: React.FC = () => {
       colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
     }  
     colleaguelist.push(<br key={i + "br"} />);
-  }
-  //ListFavoriteColleagues()
-
-  function refreshPage() {
-    window.location.reload();
-  }
-
-  function ToggleFilters() {
-    const filterdiv = document.getElementById("filterdiv");
-    const filterbtn = document.getElementById("filterbtn");
-
-    if (filterdiv?.hidden) {
-      filterdiv.hidden = false;
-      (filterbtn as HTMLButtonElement).innerHTML = "Hide Filters";
-    }
-    else {
-      (filterdiv as HTMLDivElement).hidden = true;
-      (filterbtn as HTMLButtonElement).innerHTML = "Show Filters";
-    }
   }
 
   function SearchColleagues() {
@@ -175,13 +161,10 @@ const MainPage: React.FC = () => {
   }
 
   function FilterColleagues() {
-    // getvalue
-    var option = (document.getElementById('select') as HTMLSelectElement).value;
-
     colleaguelist = [];
 
     for (let i = 0; i < Users.length; i++) {
-      if (Users[i]['status'] == option) {
+      if (Users[i]['status'] == activeFilter) {
         if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
           colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
         }
@@ -237,19 +220,6 @@ const MainPage: React.FC = () => {
     colleaguelistdiv!.hidden = true;
   }
 
-  function filterHome() {
-    const filterhome = document.getElementById("filterhome");
-
-    filterhome?.classList.remove("activefilter");
-  }
-
-  function filterOffice() {
-    const filterhome = document.getElementById("filteroffice");
-    const icon = document.getElementById("checkicon");
-
-    filterhome?.classList.remove("activefilter");
-  }
-
   return (
     <IonPage>
       <IonHeader>
@@ -295,21 +265,6 @@ const MainPage: React.FC = () => {
               {/* favorite colleagues */}
           </div>
           
-          {/* filter */}
-          {/* <button onClick={refreshPage} className='btn'>Refresh Colleagues</button> <br />
-          <button className='btn filterbtn' id="filterbtn" onClick={ToggleFilters}>Show Filters</button> <br /> <br />
-          <div className='filterdiv' id="filterdiv" hidden>
-            <div className='searchdiv'>
-              <label>Location: </label>
-              <select onChange={FilterColleagues} defaultValue="init" id="select">
-                <option disabled value="init">Select an option...</option>
-                <option value="Office">Office</option>
-                <option value="Home">Home</option>
-              </select>
-              <button className='btn' onClick={refreshPage}>Reset All Filters</button>
-            </div>
-          </div> <br /> */}
-
           <div className='colleagues' id="list" hidden>
             {colleaguelist}
           </div>
@@ -324,15 +279,29 @@ const MainPage: React.FC = () => {
             </IonToolbar>
           </IonHeader>
           <IonContent fullscreen>
-            <div className="actionbuttonscontainer">
+            {/* <div className="actionbuttonscontainer">
               <button onClick={refreshPage} className='btn' id="resetfilterbtn">RESET FILTERS</button> 
             </div>
             <br />
-            <hr />
+            <hr /> */}
             <br />
             <div className='filterbuttonscontainer'>
-              <IonChip onClick={filterHome} className="activefilter" id="filterhome">Home <IonIcon hidden id="checkicon" size='medium' icon={checkmarkSharp}></IonIcon></IonChip>
-              <IonChip onClick={filterOffice} className="activefilter" id="filteroffice">Office <IonIcon id="checkicon" size='medium' icon={checkmarkSharp}></IonIcon></IonChip>
+              {filters.map((filter, index) => {
+                return (
+                  <Filter
+                    key={index}
+                    title={filter}
+                    isActive={filter === activeFilter}
+                    onClick={(e: React.MouseEvent) => {
+                      const el = e.target as HTMLElement;
+                      if (el.textContent?.toLowerCase() !== activeFilter) {
+                        setActiveFilter(filter);
+                        FilterColleagues();
+                      }
+                    }}
+                  />
+                );
+              })}
             </div>
           </IonContent>
         </IonModal>
@@ -340,7 +309,7 @@ const MainPage: React.FC = () => {
         <IonModal isOpen={allColleaguesModalOpen}>
           <IonHeader>
             <IonToolbar color="translucent">
-              <IonTitle>All colleagues (10)</IonTitle>
+              <IonTitle>All colleagues (5)</IonTitle>
               <IonButtons slot="start">
                 <IonButton onClick={() => setAllColleaguesModalOpen(false)}><IonIcon size="large" icon={close}></IonIcon></IonButton>
               </IonButtons>
