@@ -135,6 +135,9 @@ const MainPage: React.FC = () => {
 
     colleaguelist = [];
 
+    console.log(APIcall)
+    console.log(activeFilter)
+
     if (activeFilter === "All") {
       for (let i = 0; i < APIcall.length; i++) {
         if (inclusion.includes(i)) {
@@ -144,14 +147,21 @@ const MainPage: React.FC = () => {
     }
     else {
       for (let i = 0; i < Users.length; i++) {
-        if (APIcall[i]['status']['status'] == activeFilter && inclusion.includes(i)) {
-          if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
-            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+        if (inclusion.includes(i)) {
+          if (APIcall[i]['status']['status'] == activeFilter) {
+            if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
+              colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+              colleaguelist.push(<br key={i + "br"} />);
+            }
+            else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
+              colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+              colleaguelist.push(<br key={i + "br"} />);
+            }
           }
-          else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
-            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+          if (activeFilter == "Office" && APIcall[i]["status"]["status"] == "Unknown" && APIcall[i]["status"]["detectedAtOffice"] == true && APIcall[i]["status"]["active"] == false) {
+            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Office" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+            colleaguelist.push(<br key={i + "br"} />);
           }
-          colleaguelist.push(<br key={i + "br"} />);
         }
       }
     }
