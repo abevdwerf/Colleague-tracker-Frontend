@@ -1,10 +1,10 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle, IonIcon, IonButtons, IonButton, IonToolbar, IonModal, IonChip } from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonRefresher, IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, IonButtons, IonButton, IonIcon } from '@ionic/react';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { checkmarkSharp, close, filter } from 'ionicons/icons';
+import { checkmarkSharp, close, filter, reload } from 'ionicons/icons';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 import Filter from '../components/ColleagueFilter';
 
@@ -164,6 +164,10 @@ const MainPage: React.FC = () => {
     }
   }
 
+  function reloader() {
+    window.location.reload();
+  }
+
   return (
     <IonPage>
       <IonHeader>
@@ -173,6 +177,9 @@ const MainPage: React.FC = () => {
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
+        <IonRefresher slot="fixed" onIonRefresh={reloader}>
+          <IonRefresherContent></IonRefresherContent>
+        </IonRefresher>
         <br />
         <div className='filterbuttonscontainer'>
           {filters.map((filter, index) => {
