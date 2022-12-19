@@ -14,40 +14,38 @@ interface ColleagueCardProps {
 
 let AlertsList: any;
 
-if (JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}').length === 1 || window.localStorage.getItem("AlertSentTime") == null) {
-    AlertsList = [{}]
-}
-else {
-    AlertsList = JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}');
+AlertsList = JSON.parse(window.localStorage.getItem("AlertSentTime") || '[{}]');
 
-    setInterval(function () {
-        // console.log(AlertsList.length)
-        for (let index = 1; index < AlertsList.length; index++) {
-            const d = new Date();
-            const time = d.getTime() / 1000;
-            if (AlertsList[index].AlertTimer > time) {
-                (document.getElementById(AlertsList[index].userId) as HTMLButtonElement).disabled = true;
-            }
-            if (AlertsList[index].AlertTimer < time) {
-                (document.getElementById(AlertsList[index].userId) as HTMLButtonElement).disabled = false;
-                let NewList = [{}];
-                for (let i = 1; i < AlertsList.length; i++) {
-                    if(AlertsList[index].userId !== AlertsList[i].userId){
-                        NewList.push({ userId: AlertsList[i].userId, AlertTimer: AlertsList[i].AlertTimer })
-                    }
-                }
-                window.localStorage.setItem("AlertSentTime", JSON.stringify(NewList));
-            }
-            AlertsList = JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}');
+setInterval(function () {
+    // console.log(AlertsList.length)
+    for (let index = 1; index < AlertsList.length; index++) {
+        const d = new Date();
+        const time = d.getTime() / 1000;
+        if (AlertsList[index].AlertTimer > time) {
+            (document.getElementById(AlertsList[index].userId) as HTMLButtonElement).disabled = true;
         }
-    }, 1000)
-}
+        if (AlertsList[index].AlertTimer < time) {
+            (document.getElementById(AlertsList[index].userId) as HTMLButtonElement).disabled = false;
+            let NewList = [{}];
+            for (let i = 1; i < AlertsList.length; i++) {
+                if (AlertsList[index].userId !== AlertsList[i].userId) {
+                    NewList.push({ userId: AlertsList[i].userId, AlertTimer: AlertsList[i].AlertTimer })
+                }
+            }
+            window.localStorage.setItem("AlertSentTime", JSON.stringify(NewList));
+        }
+        AlertsList = JSON.parse(window.localStorage.getItem("AlertSentTime") || '{}');
+    }
+}, 1000)
+
 
 
 
 function Notify(id: string) {
     console.log(id);
     console.log(typeof (id));
+
+    (document.getElementById(id) as HTMLButtonElement).disabled = true;
 
     let config = {
         headers: {
@@ -72,12 +70,12 @@ function Notify(id: string) {
     const d = new Date();
     const time = d.getTime() / 1000;
     const timer = time + 300;
-    console.log("btn time: "+time)
+    console.log("btn time: " + time)
     AlertsList.push({ userId: id, AlertTimer: timer })
     window.localStorage.setItem("AlertSentTime", JSON.stringify(AlertsList));
 
     console.log(AlertsList)
-    window.location.reload();
+    // window.location.reload();
 }
 
 const ColleagueCard: React.FC<ColleagueCardProps> = ({ first_name, last_name, location, id }) => {
