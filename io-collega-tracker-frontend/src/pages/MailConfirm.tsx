@@ -113,7 +113,7 @@ const MailConfirm: React.FC = () => {
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
-                <IonButton className='ionmodal' onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                <IonButton style={{ color: "white", textDecoration: "underline" }} onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
               </IonButtons>
               <IonTitle className='ionmodal'>Terms & Conditions</IonTitle>
             </IonToolbar>

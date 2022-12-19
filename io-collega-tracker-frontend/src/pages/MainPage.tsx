@@ -1,5 +1,5 @@
 import { IonContent, IonPage, IonSearchbar, IonHeader, IonTitle, IonIcon, IonButtons, IonButton, IonToolbar, IonModal, IonChip } from '@ionic/react';
-import React, { useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
@@ -28,32 +28,36 @@ const register = () => {
       axios.post(process.env.REACT_APP_ROOT_API + `/notification/fcm/set`, null, config)
         .then(res => {
           console.log(res)
-
-      });
+        });
     }
   );
-  
+
   // Some issue with our setup and push will not work
   PushNotifications.addListener('registrationError',
     (error: any) => {
       alert('Error on registration: ' + JSON.stringify(error));
     }
   );
-  };
-  register();
+};
+register();
 
 const MainPage: React.FC = () => {
   let colleaguelist = [] as any;
+  let inclusion = [] as any;
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
   const [filterModalOpen, setFilterModalOpen] = useState(false);
   const [allColleaguesModalOpen, setAllColleaguesModalOpen] = useState(false);
-  const [activeFilter, setActiveFilter] = useState("all");
+  const [activeFilter, setActiveFilter] = useState("All");
 
-  const filters: string[] = ["all", "office", "home"];
-  
-  const ListColleagues = () => {
+  const filters: string[] = ["All", "Office", "Home"];
+
+  useEffect(() => {
+    FilterColleagues();
+  }, [activeFilter])
+
+  const GetColleagues = () => {
 
     let config = {
       headers: {
@@ -66,13 +70,12 @@ const MainPage: React.FC = () => {
         .then(res => {
           if (res.status === 200) {
             setUsers(res.data);
-            console.log(Users[1]["status"]);
           }
         })
         .catch(err => {
           console.log(err)
           if (err.response.status === 401) {
-            window.location.href= "/googlelogin";
+            window.location.href = "/googlelogin";
           }
         })
     }, []);
@@ -81,8 +84,12 @@ const MainPage: React.FC = () => {
 
   }
 
-  let APIcall = ListColleagues();
+  let APIcall = GetColleagues();
   for (let i = 0; i < APIcall.length; i++) {
+    ListAllColleagues(i);
+  }
+
+  function ListAllColleagues(i: number) {
     if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
       colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
     }
@@ -103,11 +110,11 @@ const MainPage: React.FC = () => {
     }
     else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
       colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-    }  
+    }
     colleaguelist.push(<br key={i + "br"} />);
   }
 
-  function SearchColleagues() {
+  async function FilterColleagues() {
     var input = (document.getElementById('searchbox') as HTMLInputElement).value.toLowerCase();
     var APICall = Users;
     var names: Array<string> = [];
@@ -118,209 +125,82 @@ const MainPage: React.FC = () => {
     }
 
     const filtered = names.filter(name => name.includes(input));
-    colleaguelist = [];
+    inclusion = [];
 
     for (let i = 0; i < APICall.length; i++) {
       if (filtered.includes((APICall[i]['firstName'] + " " + APICall[i]['lastName']).toLowerCase())) {
-        if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Office" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }  
-        colleaguelist.push(<br key={i + "br"} />);
+        inclusion.push(i);
       }
     }
-    (document.getElementById("list") as HTMLDivElement).innerHTML = "";
 
-    let result;
-    if (colleaguelist.length < 1 && input != "") {
-      const label = React.createElement('label', { className: 'message' }, 'No match found.');
-      result = React.createElement('div', {}, label);
-    }
-    else {
-      result = React.createElement('div', {}, colleaguelist);
-    }
-
-    var div = (document.getElementById("list") as HTMLDivElement);
-    let root;
-    root = ReactDOM.createRoot(div);
-    root.render(result);
-  }
-
-  function FilterColleagues() {
     colleaguelist = [];
 
-    for (let i = 0; i < Users.length; i++) {
-      if (Users[i]['status'] == activeFilter) {
-        if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+    if (activeFilter === "All") {
+      for (let i = 0; i < APIcall.length; i++) {
+        if (inclusion.includes(i)) {
+          ListAllColleagues(i);
         }
-        else if (APIcall[i]["status"]["status"] === "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Office" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }
-        else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
-          colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
-        }  
-        colleaguelist.push(<br key={i + "br"} />);
       }
     }
-    (document.getElementById("list") as HTMLDivElement).innerHTML = "";
-
-    let result;
-    if (colleaguelist.length < 1) {
-      const label = React.createElement('label', { className: 'message' }, 'No match found.');
-      result = React.createElement('div', {}, label);
-    }
     else {
-      result = React.createElement('div', {}, colleaguelist);
+      for (let i = 0; i < Users.length; i++) {
+        if (APIcall[i]['status']['status'] == activeFilter && inclusion.includes(i)) {
+          if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
+            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+          }
+          else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
+            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+          }
+          colleaguelist.push(<br key={i + "br"} />);
+        }
+      }
     }
 
-    var div = (document.getElementById("list") as HTMLDivElement);
-    let root;
-    root = ReactDOM.createRoot(div);
-    root.render(result);
-  }
-
-  function HandleOnFocus() {
-    setCancelButton(true);
-    const contentcontainer = document.getElementById("contentcontainer");
-    const colleaguelistdiv = document.getElementById("list");
-
-    contentcontainer!.hidden = true;
-    colleaguelistdiv!.hidden = false;
-  }
-
-  function HandleOnCancel() {
-    setCancelButton(false);
-    const contentcontainer = document.getElementById("contentcontainer");
-    const colleaguelistdiv = document.getElementById("list");
-    contentcontainer!.hidden = false;
-    colleaguelistdiv!.hidden = true;
+    (document.getElementById("list") as HTMLDivElement).innerHTML = "";
+    let result;
+    if (colleaguelist.length > 1) {
+      result = React.createElement('div', {}, colleaguelist);
+      const root = ReactDOM.createRoot(document.getElementById("list") as HTMLDivElement).render(result);
+    }
   }
 
   return (
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          {(() => {
-              if (CancelButton) {
-                return (
-                  <>
-                    <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="always" onIonChange={SearchColleagues} onIonFocus={HandleOnFocus} onIonCancel={HandleOnCancel} ref={searchInput}>
-                    </IonSearchbar>
-                    {/* <IonButtons slot="end">
-                        <IonButton onClick={() => setIsOpen(true)}>
-                          <IonIcon color="light" size="large" icon={filter}></IonIcon>
-                        </IonButton>
-                    </IonButtons> */}
-                  </>
-                );
-              }
-              else {
-                return (
-                  <>
-                    <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonFocus={HandleOnFocus} >
-                    </IonSearchbar>
-                    <IonButtons slot="end">
-                        <IonButton onClick={() => setFilterModalOpen(true)}>
-                          <IonIcon color="light" size="large" icon={filter}></IonIcon>
-                        </IonButton>
-                    </IonButtons>
-                  </>
-                );
-              }
-            })()}
+          <IonSearchbar id="searchbox" color="light" placeholder="Search Colleagues..." showCancelButton="never" onIonChange={FilterColleagues} ref={searchInput}>
+          </IonSearchbar>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
-          {/* <h1>Welcome, {localStorage.getItem("first_name")}</h1> */}
-          <div id="contentcontainer">
-            <div className="containeractionbuttons">
-              <button onClick={() => setAllColleaguesModalOpen(true)} className='btn' id="allcolleaguesbtn">ALL COLLEAGUES</button> 
-            </div>
-            <br />
-            <h5 className='titlefavorite'>Favorites</h5>
-              {/* favorite colleagues */}
-          </div>
-          
-          <div className='colleagues' id="list" hidden>
+        <br />
+        <div className='filterbuttonscontainer'>
+          {filters.map((filter, index) => {
+            return (
+              <Filter
+                key={index}
+                title={filter}
+                isActive={filter === activeFilter}
+                onClick={(e: React.MouseEvent) => {
+                  const el = e.target as HTMLElement;
+                  if (el.textContent?.toLowerCase() !== activeFilter) {
+                    setActiveFilter(filter);
+                  }
+                }}
+              />
+            );
+          })}
+        </div>
+        <div id="contentcontainer">
+          <br />
+          <div id="list">
             {colleaguelist}
           </div>
-
-        <IonModal isOpen={filterModalOpen}>
-          <IonHeader>
-            <IonToolbar color="translucent">
-              <IonTitle>Filters</IonTitle>
-              <IonButtons slot="start">
-                <IonButton onClick={() => setFilterModalOpen(false)}><IonIcon size="large" icon={close}></IonIcon></IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent fullscreen>
-            {/* <div className="actionbuttonscontainer">
-              <button onClick={refreshPage} className='btn' id="resetfilterbtn">RESET FILTERS</button> 
-            </div>
-            <br />
-            <hr /> */}
-            <br />
-            <div className='filterbuttonscontainer'>
-              {filters.map((filter, index) => {
-                return (
-                  <Filter
-                    key={index}
-                    title={filter}
-                    isActive={filter === activeFilter}
-                    onClick={(e: React.MouseEvent) => {
-                      const el = e.target as HTMLElement;
-                      if (el.textContent?.toLowerCase() !== activeFilter) {
-                        setActiveFilter(filter);
-                        FilterColleagues();
-                      }
-                    }}
-                  />
-                );
-              })}
-            </div>
-          </IonContent>
-        </IonModal>
-        
-        <IonModal isOpen={allColleaguesModalOpen}>
-          <IonHeader>
-            <IonToolbar color="translucent">
-              <IonTitle>All colleagues (5)</IonTitle>
-              <IonButtons slot="start">
-                <IonButton onClick={() => setAllColleaguesModalOpen(false)}><IonIcon size="large" icon={close}></IonIcon></IonButton>
-              </IonButtons>
-            </IonToolbar>
-          </IonHeader>
-          <IonContent fullscreen>
-          </IonContent>
-        </IonModal>
+        </div>
       </IonContent>
     </IonPage>
   );
 };
 
 export default MainPage;
+
