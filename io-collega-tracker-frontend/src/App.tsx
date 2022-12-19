@@ -47,7 +47,7 @@ const App: React.FC = () => (
   <IonApp>
     <IonReactRouter>
       <IonTabs>
-        <IonRouterOutlet>
+        <IonRouterOutlet animated={false}>
           <Route exact path="/googlelogin">
             <GoogleLogin />
           </Route>
