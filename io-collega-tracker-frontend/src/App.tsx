@@ -18,6 +18,7 @@ import MailConfirm from './pages/MailConfirm';
 import VerifyWait from './pages/VerifyWait';
 import MacPage from './pages/MacPage';
 import './App.css';
+import { createGesture, Gesture } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -47,8 +48,39 @@ import ReactDOM from 'react-dom/client';
 
 setupIonicReact();
 
+let gesture: any;
+
+function Swipe(detail: any) {
+  // if (detail.velocityY > 0) {
+  //   (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
+  //   gesture.enable(false);
+  // }
+  if (detail.velocityX != 0) {
+    if (detail.velocityX < 0) {
+      //Swipe Left
+      console.log("left");
+      (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeLeft");
+      gesture.enable(false);
+    }
+    
+    if (detail.velocityX > 0){
+      //Swipe Right
+      console.log("right");
+      (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
+      gesture.enable(false);
+    }
+  }
+}
+
 function hideNotification() {
   (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
+  if ((document.getElementById("notifdiv") as HTMLDivElement).classList.contains("swipeLeft")) {
+    (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeLeft");
+  }
+  if ((document.getElementById("notifdiv") as HTMLDivElement).classList.contains("swipeRight")) {
+    (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
+  }
+  gesture.enable(false);
 }
 
 const listenForNotifications = () => {
@@ -65,12 +97,19 @@ const listenForNotifications = () => {
     }
     root.render(<NotificationCard header={header} text={text}></NotificationCard>)
     div.classList.toggle("show");
+
+    gesture = createGesture({
+      el: document.getElementById("notifdiv") as HTMLDivElement,
+      gestureName: "swipeX",
+      //direction: "y",
+      onMove: (detail) => Swipe(detail)
+    })
+    gesture.enable(true);
   }
 
   PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
-    console.log(notification)
     showNotification(notification.title, notification.body)
-    setTimeout(hideNotification, 5000)
+    setTimeout(hideNotification, 7000)
   })
 };
 
@@ -131,7 +170,7 @@ const App: React.FC = () => (
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
-    <div id="notifdiv" onClick={hideNotification}/>
+    <div id="notifdiv" />
   </IonApp>
 );
 
