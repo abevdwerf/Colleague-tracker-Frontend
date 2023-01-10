@@ -17,6 +17,7 @@ import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
 import VerifyWait from './pages/VerifyWait';
 import MacPage from './pages/MacPage';
+import './App.css';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -45,35 +46,34 @@ import NotificationCard from './components/NotificationCard';
 import ReactDOM from 'react-dom/client';
 
 setupIonicReact();
-function hideNotification()
-  {
-    (document.getElementById("notifdiv") as HTMLDivElement).hidden = true;
-  }
+
+function hideNotification() {
+  (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
+}
 
 const listenForNotifications = () => {
-  
 
-  function showNotification(header: string | undefined, text: string | undefined)
-  {
+  function showNotification(header: string | undefined, text: string | undefined) {
     let div = document.getElementById("notifdiv") as HTMLDivElement
     div.innerHTML = "";
     const root = ReactDOM.createRoot(div);
     if (header === undefined) {
-      header=""
+      header = ""
     }
     if (text === undefined) {
       text = ""
     }
     root.render(<NotificationCard header={header} text={text}></NotificationCard>)
-    div.hidden = false;
+    div.classList.toggle("show");
   }
 
   PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
-      console.log(notification)
-      showNotification(notification.title, notification.body)
-      setTimeout(hideNotification, 5000)
+    console.log(notification)
+    showNotification(notification.title, notification.body)
+    setTimeout(hideNotification, 5000)
   })
 };
+
 listenForNotifications();
 
 const App: React.FC = () => (
@@ -131,9 +131,7 @@ const App: React.FC = () => (
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
-    <div hidden id="notifdiv" onClick={hideNotification}>
-        
-    </div>
+    <div id="notifdiv" onClick={hideNotification}/>
   </IonApp>
 );
 

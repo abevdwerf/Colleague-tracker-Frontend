@@ -2,21 +2,21 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    background-color: rgba(255, 255, 255, 0.881);
+    background-color: rgba(255, 255, 255, 0.701);
     border-radius: 15px;
-    width: 250px;
+    width: 90%;
+    height: 60px;
     padding: 10px;
     font-family: 'TT Commons Pro';
     text-align: left;
-    filter: drop-shadow(0 2px 3px rgba(0, 0, 0, 0.498));
+    filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.715));
+    backdrop-filter: blur(10px);
 }
 
 .notifcardheader {
-    font-weight: bolder;
+    font-size: normal;
 }
 
-.icon {
-    width: 10px;
-    height: 10px;
-    color: gray; 
+.notifcardtext {
+    font-size: small;
 }

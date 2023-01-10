@@ -10,7 +10,7 @@ const NotificationCard: React.FC<NotificationCardProps> = ({ header, text }) => 
     return (
         <div className='notifcard'>
             <label className='notifcardheader'>{header}</label> <br />
-            <label>{text}</label>
+            <label className='notifcardtext'>{text}</label>
             {/* <table style={{ width: "100%" }}>
                 <tbody>
                     <tr>
