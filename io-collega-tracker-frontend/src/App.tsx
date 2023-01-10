@@ -11,6 +11,7 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { settings, person, search } from 'ionicons/icons';
+import { PushNotificationSchema, PushNotifications, Token } from '@capacitor/push-notifications';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
@@ -40,8 +41,40 @@ import MainPage from './pages/MainPage';
 import Settings from './pages/Settings';
 import AddMac from './pages/AddMac';
 import EditMac from './pages/EditMac';
+import NotificationCard from './components/NotificationCard';
+import ReactDOM from 'react-dom/client';
 
 setupIonicReact();
+function hideNotification()
+  {
+    (document.getElementById("notifdiv") as HTMLDivElement).hidden = true;
+  }
+
+const listenForNotifications = () => {
+  
+
+  function showNotification(header: string | undefined, text: string | undefined)
+  {
+    let div = document.getElementById("notifdiv") as HTMLDivElement
+    div.innerHTML = "";
+    const root = ReactDOM.createRoot(div);
+    if (header === undefined) {
+      header=""
+    }
+    if (text === undefined) {
+      text = ""
+    }
+    root.render(<NotificationCard header={header} text={text}></NotificationCard>)
+    div.hidden = false;
+  }
+
+  PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+      console.log(notification)
+      showNotification(notification.title, notification.body)
+      setTimeout(hideNotification, 5000)
+  })
+};
+listenForNotifications();
 
 const App: React.FC = () => (
   <IonApp>
@@ -98,6 +131,9 @@ const App: React.FC = () => (
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
+    <div hidden id="notifdiv" onClick={hideNotification}>
+        
+    </div>
   </IonApp>
 );
 

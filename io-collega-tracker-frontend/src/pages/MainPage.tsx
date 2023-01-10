@@ -9,6 +9,7 @@ import { PushNotifications, Token } from '@capacitor/push-notifications';
 import Filter from '../components/ColleagueFilter';
 
 const register = () => {
+  PushNotifications.requestPermissions()
   PushNotifications.register();
   // On success, we should be able to receive notifications
   PushNotifications.addListener('registration',
