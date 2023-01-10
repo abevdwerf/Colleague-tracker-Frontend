@@ -40,7 +40,6 @@ const MacPage: React.FC = () => {
         window.location.href = "/settings"
     }
 
-    //let APIcall = ListAddresses();
     for (let i = 0; i < Addresses.length; i++) {
         addresslist.push(<MacCard name={Addresses[i]["label"]} address={Addresses[i]["addressValue"]} key={i} index={Addresses[i]["id"]} />);
         addresslist.push(<br key={i + "br"} />);

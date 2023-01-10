@@ -3,7 +3,7 @@ import axios from 'axios';
 
 const AddMac: React.FC = () => {
     function goback() {
-        window.location.href = "/macpage"
+        window.location.href = "/macpage";
     }
 
     const [presentAlert] = useIonAlert();
@@ -35,7 +35,7 @@ const AddMac: React.FC = () => {
                             header: 'MAC-Address',
                             message: "This MAC-Address has already been added by either you or someone else before. Please enter a different MAC-Address.",
                             buttons: ['Ok'],
-                          })
+                        })
                     }
                 }
             })
@@ -47,7 +47,7 @@ const AddMac: React.FC = () => {
                 <div className='addmacaddress'>
                     <h1>Add MAC-Address</h1> <br />
                     <label className='addmactext'>Device Name: </label> <br />
-                    <input type="text" className="textbox" placeholder='Device Name...' id="labelinp"/> <br /> <br />
+                    <input type="text" className="textbox" placeholder='Device Name...' id="labelinp" /> <br /> <br />
                     <label className='addmactext'>Address: </label> <br />
                     <input type="text" className="textbox" id="addressinp" placeholder='e.g: 00:1B:44:11:3A:B7' />
                 </div> <br />

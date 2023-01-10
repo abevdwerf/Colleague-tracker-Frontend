@@ -10,12 +10,6 @@ ion-content {
     transform: translateY(-50%);
 }
 
-/* h2 {
-    color: white;
-    font-family: 'TT Commons Pro';
-    padding-bottom: 20px;
-} */
-
 #searchbox {
     --border-radius: 9px;
     --box-shadow: 0px 2px 5px #0000005b;
@@ -66,7 +60,6 @@ ion-content {
 }
 
 .titlefavorite {
-    /* text-align: start; */
     color: white;
 }
 

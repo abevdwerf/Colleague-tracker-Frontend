@@ -1,7 +1,6 @@
 import './ColleagueCard.css';
 import React from 'react';
 import axios from 'axios';
-import { useIonViewDidEnter } from '@ionic/react';
 
 interface ColleagueCardProps {
     first_name: string;
@@ -38,11 +37,7 @@ setInterval(function () {
 }, 1000)
 
 function Notify(id: string) {
-    console.log(id);
-    console.log(typeof (id));
-
     (document.getElementById(id) as HTMLButtonElement).disabled = true;
-
     let config = {
         headers: {
             idToken: localStorage.getItem("token")
@@ -51,7 +46,6 @@ function Notify(id: string) {
             notifiedUserId: id
         }
     }
-
     axios.post(process.env.REACT_APP_ROOT_API + `/notification/notify`, null, config)
         .then(res => {
             if (res.status === 200) {
@@ -61,8 +55,6 @@ function Notify(id: string) {
         .catch(err => {
             console.log(err)
         })
-
-
     const d = new Date();
     const time = d.getTime() / 1000;
     const timer = time + 300;
@@ -78,7 +70,7 @@ const ColleagueCard: React.FC<ColleagueCardProps> = ({ first_name, last_name, lo
                     <tr>
                         <td style={{ width: "90%" }}>
                             <label className='name'>{first_name} {last_name}</label> <br />
-                            
+
                             <label className='colleaguelabel'>{(() => {
                                 if (location == "Office") {
                                     return <i className="fa-solid fa-building"></i>;

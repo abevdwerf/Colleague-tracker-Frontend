@@ -8,20 +8,20 @@ const Filter = ({
   title,
   isActive,
   onClick,
-  }: {
-    title: string;
-    isActive: boolean;
-    onClick: React.MouseEventHandler;
-  }) => {
+}: {
+  title: string;
+  isActive: boolean;
+  onClick: React.MouseEventHandler;
+}) => {
   return (
     <IonChip onClick={onClick} style={{ backgroundColor: `${isActive ? "#4E54C5" : "white"}`, color: `${isActive ? "white" : "black"}` }} className="filterbtn" >
       {capitalize(title)}
-      {isActive 
+      {isActive
         ? <IonIcon id="checkicon" color="white" size='medium' icon={checkmarkSharp}>
-          </IonIcon>
+        </IonIcon>
         : null
       }
-      
+
     </IonChip>
   );
 };

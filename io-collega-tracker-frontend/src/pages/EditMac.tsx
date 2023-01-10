@@ -22,10 +22,8 @@ const EditMac: React.FC = () => {
         axios.get(process.env.REACT_APP_ROOT_API + `/get-mac-addresses`, config)
             .then(res => {
                 if (res.status === 200) {
-                    for (let i = 0; i < res.data.length; i++)
-                    {
-                        if (res.data[i]["id"] == localStorage.getItem("addressid"))
-                        {
+                    for (let i = 0; i < res.data.length; i++) {
+                        if (res.data[i]["id"] == localStorage.getItem("addressid")) {
                             id = res.data[i]["id"];
                             (document.getElementById("addressinp") as HTMLInputElement).value = res.data[i]["addressValue"];
                             (document.getElementById("labelinp") as HTMLInputElement).value = res.data[i]["label"];
@@ -66,7 +64,7 @@ const EditMac: React.FC = () => {
                         header: 'MAC-Address',
                         message: "You didn't change either field. If you don't want to change anything here, please go back to the previous page.",
                         buttons: ['Ok'],
-                      })
+                    })
                 }
             })
     }
@@ -99,7 +97,7 @@ const EditMac: React.FC = () => {
                 <div className='addmacaddress'>
                     <h1>Edit MAC-Address</h1> <br />
                     <label className='addmactext'>Device Name: </label> <br />
-                    <input type="text" className="textbox" placeholder='Device Name...' id="labelinp"/> <br /> <br />
+                    <input type="text" className="textbox" placeholder='Device Name...' id="labelinp" /> <br /> <br />
                     <label className='addmactext'>Address: </label> <br />
                     <input type="text" className="textbox" id="addressinp" placeholder='e.g: 00:1B:44:11:3A:B7' />
                 </div> <br />

@@ -7,7 +7,6 @@ import Image from "../profile-icon-9.png"
 const LocationSetting: React.FC = () => {
 
   const [Status, SetStatus] = useState("Unknown");
-
   const [StartTime, SetStartTime] = useState<string>();
   const [EndTime, SetEndTime] = useState<string>();
 
@@ -240,8 +239,6 @@ const LocationSetting: React.FC = () => {
               <p id="time">No Time Set</p>
             </div>
           </div>
-          {/* <h5>Role(s):</h5>
-              <label>*ROLES*</label> */}
           <h5>Where are you working from today?</h5>
           <button id="yesbtn" className='togglebtn' onClick={SetYes}>Office</button>
           <button id="nobtn" className='togglebtn' onClick={SetNo}>Home</button> <br />

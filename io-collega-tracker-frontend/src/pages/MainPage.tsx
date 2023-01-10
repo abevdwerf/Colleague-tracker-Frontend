@@ -1,16 +1,14 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonRefresher, IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, IonButtons, IonButton, IonIcon } from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonRefresher, IonRefresherContent,  IonToolbar } from '@ionic/react';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { checkmarkSharp, close, filter, reload } from 'ionicons/icons';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 import Filter from '../components/ColleagueFilter';
 
 const register = () => {
   PushNotifications.register();
-  // On success, we should be able to receive notifications
   PushNotifications.addListener('registration',
     (token: Token) => {
       console.log(JSON.stringify(token.value))
@@ -32,7 +30,6 @@ const register = () => {
     }
   );
 
-  // Some issue with our setup and push will not work
   PushNotifications.addListener('registrationError',
     (error: any) => {
       alert('Error on registration: ' + JSON.stringify(error));
@@ -45,12 +42,8 @@ const MainPage: React.FC = () => {
   let colleaguelist = [] as any;
   let inclusion = [] as any;
   const [Users, setUsers] = useState([]);
-  const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
-  const [filterModalOpen, setFilterModalOpen] = useState(false);
-  const [allColleaguesModalOpen, setAllColleaguesModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
-
   const filters: string[] = ["All", "Office", "Home"];
 
   useEffect(() => {
@@ -81,7 +74,6 @@ const MainPage: React.FC = () => {
     }, []);
 
     return Users;
-
   }
 
   let APIcall = GetColleagues();

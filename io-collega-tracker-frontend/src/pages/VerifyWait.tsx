@@ -8,7 +8,7 @@ const VerifyWait: React.FC = () => {
   const [ticking, setTicking] = useState(true),
     [count, setCount] = useState(0);
 
-    (document.getElementById("tab-bar") as HTMLElement).hidden = true;
+  (document.getElementById("tab-bar") as HTMLElement).hidden = true;
 
   useEffect(() => {
     const timer = setTimeout(() => ticking && setCount(count + 1), 1e3)
@@ -35,8 +35,6 @@ const VerifyWait: React.FC = () => {
     return () => clearTimeout(timer)
   }, [count, ticking])
 
-
-
   return (
     <IonPage>
       <IonContent fullscreen>
@@ -46,7 +44,6 @@ const VerifyWait: React.FC = () => {
           <i className="fa-solid fa-envelope-open-text fa-5x"></i>
           <div className='submit'>
             <label className="label">Please verify your entered mail address by clicking on the link in the sent verification mail.</label> <br />
-            {/* <button className="btn">Resend Email</button> */}
           </div>
         </div>
       </IonContent>
