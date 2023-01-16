@@ -53,7 +53,6 @@ let gesture: any;
 function Swipe(detail: any) {
   // if (detail.velocityY > 0) {
   //   (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
-  //   gesture.enable(false);
   // }
   if (detail.velocityX != 0) {
     if (detail.velocityX < 0) {
@@ -67,6 +66,8 @@ function Swipe(detail: any) {
       console.log("right");
       (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
     }
+    gesture.enable(false);
+    setTimeout(gesture.enable(true), 750);
   }
 }
 
