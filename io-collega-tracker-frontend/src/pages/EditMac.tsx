@@ -56,7 +56,7 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
-                    console.log(res);
+                    goback();
                 }
             })
             .catch(err => {
@@ -68,8 +68,7 @@ const EditMac: React.FC = () => {
                         buttons: ['Ok'],
                       })
                 }
-            })
-            goback();
+            })   
     }
 
     function Delete() {
