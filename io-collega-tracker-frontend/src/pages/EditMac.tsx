@@ -69,6 +69,7 @@ const EditMac: React.FC = () => {
                       })
                 }
             })
+            goback();
     }
 
     function Delete() {
@@ -90,7 +91,7 @@ const EditMac: React.FC = () => {
             .catch(err => {
                 console.log(err)
             })
-        goback();
+            goback();
     }
 
     return (
