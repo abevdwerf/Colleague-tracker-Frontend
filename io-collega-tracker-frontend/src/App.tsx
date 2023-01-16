@@ -60,14 +60,12 @@ function Swipe(detail: any) {
       //Swipe Left
       console.log("left");
       (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeLeft");
-      gesture.enable(false);
     }
     
     if (detail.velocityX > 0){
       //Swipe Right
       console.log("right");
       (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
-      gesture.enable(false);
     }
   }
 }
@@ -80,7 +78,6 @@ function hideNotification() {
   if ((document.getElementById("notifdiv") as HTMLDivElement).classList.contains("swipeRight")) {
     (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
   }
-  gesture.enable(false);
 }
 
 const listenForNotifications = () => {
