@@ -56,7 +56,7 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
-                    console.log(res);
+                    goback();
                 }
             })
             .catch(err => {
@@ -68,7 +68,7 @@ const EditMac: React.FC = () => {
                         buttons: ['Ok'],
                       })
                 }
-            })
+            })   
     }
 
     function Delete() {
@@ -85,12 +85,16 @@ const EditMac: React.FC = () => {
             .then(res => {
                 if (res.status === 200) {
                     localStorage.removeItem("addressid");
+                    goback();
                 }
             })
             .catch(err => {
                 console.log(err)
+                presentAlert({
+                    header: 'An error has occured',
+                    buttons: ['Ok'],
+                  })
             })
-        goback();
     }
 
     return (

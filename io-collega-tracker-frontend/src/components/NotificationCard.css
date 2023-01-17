@@ -1,0 +1,22 @@
+.notifcard {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    background-color: rgba(255, 255, 255, 0.770);
+    border-radius: 15px;
+    width: 90%;
+    height: 60px;
+    padding: 10px;
+    font-family: 'TT Commons Pro';
+    text-align: left;
+    filter: drop-shadow(0 0px 10px rgba(0, 0, 0, 0.715));
+    backdrop-filter: blur(10px);
+}
+
+.notifcardheader {
+    font-size: normal;
+}
+
+.notifcardtext {
+    font-size: small;
+}

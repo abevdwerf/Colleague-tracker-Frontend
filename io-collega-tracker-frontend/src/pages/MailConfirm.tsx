@@ -83,6 +83,13 @@ const MailConfirm: React.FC = () => {
     }
   }
 
+  const handleKeyDown = (event:any) => {
+
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        submitEmail();
+    }
+  };
   const modal = useRef<HTMLIonModalElement>(null);
 
   return (
@@ -91,7 +98,7 @@ const MailConfirm: React.FC = () => {
         <div className='form'>
           <i className="fa-solid fa-envelope fa-3x"></i>
           <h1>Enter your iO mail address:</h1>
-          <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' /> <br /><br /><br />
+          <input id='emailInput' type="email" placeholder='example@iodigital.com' className='textbox' onKeyDown={handleKeyDown}/> <br /><br /><br />
           <label className='checkcontainer'>I've read and accepted the <br /> <IonButton className='termsbtn' id="open-modal">terms and conditions</IonButton>
             <input type="checkbox" id="myCheckbox" onChange={SetButton} />
             <span className="checkmark"></span>
@@ -106,7 +113,7 @@ const MailConfirm: React.FC = () => {
           <IonHeader>
             <IonToolbar>
               <IonButtons slot="start">
-                <IonButton className='ionmodal' onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                <IonButton style={{ color: "white", textDecoration: "underline" }} onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
               </IonButtons>
               <IonTitle className='ionmodal'>Terms & Conditions</IonTitle>
             </IonToolbar>

@@ -10,7 +10,6 @@ const Settings: React.FC = () => {
         <IonPage>
             <IonContent fullscreen >
                 <h1>Settings</h1> <br />
-                <button className='settingsbtn'>Nofitications</button> <br />
                 <Link to="/macpage"><button className='settingsbtn'>MAC-Addresses</button></Link> <br />
                 <button className='settingsbtn' id="open-modal">Terms & Conditions</button> <br />
 
@@ -18,7 +17,7 @@ const Settings: React.FC = () => {
                     <IonHeader>
                         <IonToolbar>
                             <IonButtons slot="start">
-                                <IonButton className='ionmodal' onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
+                                <IonButton style={{ color: "white", textDecoration: "underline" }} onClick={() => modal.current?.dismiss()}>Cancel</IonButton>
                             </IonButtons>
                             <IonTitle className='ionmodal'>Terms & Conditions</IonTitle>
                         </IonToolbar>
