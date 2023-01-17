@@ -9,6 +9,7 @@ import { PushNotifications, Token } from '@capacitor/push-notifications';
 import Filter from '../components/ColleagueFilter';
 
 const register = () => {
+  PushNotifications.requestPermissions()
   PushNotifications.register();
   // On success, we should be able to receive notifications
   PushNotifications.addListener('registration',
@@ -43,6 +44,7 @@ register();
 
 const MainPage: React.FC = () => {
   let colleaguelist = [] as any;
+  let displaylist = [] as any;
   let inclusion = [] as any;
   const [Users, setUsers] = useState([]);
   const [CancelButton, setCancelButton] = useState(false);
@@ -87,6 +89,8 @@ const MainPage: React.FC = () => {
   let APIcall = GetColleagues();
   for (let i = 0; i < APIcall.length; i++) {
     ListAllColleagues(i);
+    displaylist.push(colleaguelist[i])
+    displaylist.push(<br key={i + "br"}/>)
   }
 
   function ListAllColleagues(i: number) {
@@ -111,7 +115,6 @@ const MainPage: React.FC = () => {
     else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === false) {
       colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location="Unknown" id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
     }
-    colleaguelist.push(<br key={i + "br"} />);
   }
 
   async function FilterColleagues() {
@@ -134,39 +137,44 @@ const MainPage: React.FC = () => {
     }
 
     colleaguelist = [];
+    displaylist = [];
+    for (let i = 0; i < APIcall.length; i++) {
+      ListAllColleagues(i);
+    }
 
     if (activeFilter === "All") {
       for (let i = 0; i < APIcall.length; i++) {
         if (inclusion.includes(i)) {
-          ListAllColleagues(i);
+          displaylist.push(colleaguelist[i]);
+          displaylist.push(<br key={i + "br"} />);
         }
       }
     }
     else {
       for (let i = 0; i < Users.length; i++) {
-        if (APIcall[i]['status']['status'] == activeFilter && inclusion.includes(i)) {
-          if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === true && APIcall[i]["status"]["active"] === true) {
-            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+        if (colleaguelist[i].props.location === activeFilter) {
+          if (APICall[i]["status"]["detectedAtOffice"] === true && APICall[i]["status"]["active"] === true) {
+            displaylist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={colleaguelist[i].props.location} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
           }
-          else if (APIcall[i]["status"]["status"] !== "Unknown" && APIcall[i]["status"]["detectedAtOffice"] === false && APIcall[i]["status"]["active"] === true) {
-            colleaguelist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={APIcall[i]['status']['status']} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+          else if (APICall[i]["status"]["detectedAtOffice"] === false && APICall[i]["status"]["active"] === true) {
+            displaylist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={colleaguelist[i].props.location} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
           }
-          colleaguelist.push(<br key={i + "br"} />);
+          else if (APICall[i]["status"]["detectedAtOffice"] === true && APICall[i]["status"]["active"] === false) {
+            displaylist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={colleaguelist[i].props.location} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
+          }
+          displaylist.push(<br key={i + "br"} />);
         }
       }
     }
 
     (document.getElementById("list") as HTMLDivElement).innerHTML = "";
     let result;
-    if (colleaguelist.length > 1) {
-      result = React.createElement('div', {}, colleaguelist);
+    if (displaylist.length > 1) {
+      result = React.createElement('div', {}, displaylist);
       const root = ReactDOM.createRoot(document.getElementById("list") as HTMLDivElement).render(result);
     }
   }
 
-  function reloader() {
-    window.location.reload();
-  }
 
   return (
     <IonPage>
@@ -201,7 +209,7 @@ const MainPage: React.FC = () => {
         <div id="contentcontainer">
           <br />
           <div id="list">
-            {colleaguelist}
+            {displaylist}
           </div>
         </div>
       </IonContent>

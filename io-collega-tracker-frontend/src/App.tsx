@@ -11,11 +11,14 @@ import {
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
 import { settings, person, search } from 'ionicons/icons';
+import { PushNotificationSchema, PushNotifications, Token } from '@capacitor/push-notifications';
 import GoogleLogin from './pages/GoogleLogin';
 import LoginSuccess from './pages/LoginSuccess';
 import MailConfirm from './pages/MailConfirm';
 import VerifyWait from './pages/VerifyWait';
 import MacPage from './pages/MacPage';
+import './App.css';
+import { createGesture, Gesture } from '@ionic/react';
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -40,8 +43,75 @@ import MainPage from './pages/MainPage';
 import Settings from './pages/Settings';
 import AddMac from './pages/AddMac';
 import EditMac from './pages/EditMac';
+import NotificationCard from './components/NotificationCard';
+import ReactDOM from 'react-dom/client';
 
 setupIonicReact();
+
+let gesture: any;
+
+function Swipe(detail: any) {
+  // if (detail.velocityY > 0) {
+  //   (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
+  // }
+  if (detail.velocityX != 0) {
+    if (detail.velocityX < 0) {
+      //Swipe Left
+      console.log("left");
+      (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeLeft");
+    }
+    
+    if (detail.velocityX > 0){
+      //Swipe Right
+      console.log("right");
+      (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
+    }
+    gesture.enable(false);
+    setTimeout(gesture.enable(true), 750);
+  }
+}
+
+function hideNotification() {
+  (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("show");
+  if ((document.getElementById("notifdiv") as HTMLDivElement).classList.contains("swipeLeft")) {
+    (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeLeft");
+  }
+  if ((document.getElementById("notifdiv") as HTMLDivElement).classList.contains("swipeRight")) {
+    (document.getElementById("notifdiv") as HTMLDivElement).classList.toggle("swipeRight");
+  }
+}
+
+const listenForNotifications = () => {
+
+  function showNotification(header: string | undefined, text: string | undefined) {
+    let div = document.getElementById("notifdiv") as HTMLDivElement
+    div.innerHTML = "";
+    const root = ReactDOM.createRoot(div);
+    if (header === undefined) {
+      header = ""
+    }
+    if (text === undefined) {
+      text = ""
+    }
+    root.render(<NotificationCard header={header} text={text}></NotificationCard>)
+    div.classList.toggle("show");
+
+    gesture = createGesture({
+      el: document.getElementById("notifdiv") as HTMLDivElement,
+      gestureName: "swipeX",
+      //direction: "y",
+      onMove: (detail) => Swipe(detail)
+    })
+    gesture.enable(true);
+  }
+
+  PushNotifications.addListener('pushNotificationReceived', (notification: PushNotificationSchema) => {
+    showNotification(notification.title, notification.body)
+    setTimeout(hideNotification, 7000)
+  })
+};
+
+listenForNotifications();
 
 const App: React.FC = () => (
   <IonApp>
@@ -98,6 +168,7 @@ const App: React.FC = () => (
         </IonTabBar>
       </IonTabs>
     </IonReactRouter>
+    <div id="notifdiv" />
   </IonApp>
 );
 
