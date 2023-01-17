@@ -1,10 +1,9 @@
-import { IonContent, IonPage, IonSearchbar, IonHeader, IonRefresher, IonRefresherContent, IonTitle, IonToolbar, RefresherEventDetail, IonButtons, IonButton, IonIcon } from '@ionic/react';
+import { IonContent, IonPage, IonSearchbar, IonHeader, IonRefresher, IonRefresherContent, IonToolbar } from '@ionic/react';
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import ColleagueCard from '../components/ColleagueCard';
 import './MainPage.css';
 import ReactDOM from 'react-dom/client';
-import { checkmarkSharp, close, filter, reload } from 'ionicons/icons';
 import { PushNotifications, Token } from '@capacitor/push-notifications';
 import Filter from '../components/ColleagueFilter';
 
@@ -47,10 +46,7 @@ const MainPage: React.FC = () => {
   let displaylist = [] as any;
   let inclusion = [] as any;
   const [Users, setUsers] = useState([]);
-  const [CancelButton, setCancelButton] = useState(false);
   const searchInput = useRef(null);
-  const [filterModalOpen, setFilterModalOpen] = useState(false);
-  const [allColleaguesModalOpen, setAllColleaguesModalOpen] = useState(false);
   const [activeFilter, setActiveFilter] = useState("All");
 
   const filters: string[] = ["All", "Office", "Home"];
@@ -152,7 +148,7 @@ const MainPage: React.FC = () => {
     }
     else {
       for (let i = 0; i < Users.length; i++) {
-        if (colleaguelist[i].props.location === activeFilter) {
+        if (colleaguelist[i].props.location === activeFilter && inclusion.includes(i)) {
           if (APICall[i]["status"]["detectedAtOffice"] === true && APICall[i]["status"]["active"] === true) {
             displaylist.push(<ColleagueCard first_name={APIcall[i]['firstName']} last_name={APIcall[i]['lastName']} location={colleaguelist[i].props.location} id={Users[i]['id']} beginTime={APIcall[i]['status']['beginTime']} expirationTime={APIcall[i]['status']['expirationTime']} key={i} />);
           }
@@ -175,6 +171,9 @@ const MainPage: React.FC = () => {
     }
   }
 
+  function reloader() {
+    window.location.reload();
+  }
 
   return (
     <IonPage>
